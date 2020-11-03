@@ -6,7 +6,7 @@ describe('Guest', () => {
   let guest1;
 
   beforeEach(() => {
-    guest1 = new Guest();
+    guest1 = new Guest("customer1");
   })
 
   it('should be a function', () => {

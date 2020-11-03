@@ -6,7 +6,7 @@ describe('Manager', () => {
   let manager;
 
   beforeEach(() => {
-    manager = new Manager();
+    manager = new Manager("manager");
   })
 
   it('should be a function', () => {

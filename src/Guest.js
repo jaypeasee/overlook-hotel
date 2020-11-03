@@ -1,8 +1,8 @@
 import User from './User'
 
 class Guest extends User {
-  constructor() {
-    super()
+  constructor(username) {
+    super(username)
   }
 }
 
