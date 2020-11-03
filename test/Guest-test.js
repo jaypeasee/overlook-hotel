@@ -9,7 +9,6 @@ describe('Guest', () => {
     guest1 = new Guest();
   })
 
-
   it('should be a function', () => {
     expect(Guest).to.be.a('function');
   })
