@@ -10,10 +10,9 @@ import { apiData } from './api-data'
 
 const loginForm = document.querySelector('.login-form');
 
-let currentUser;
 let currentGuest;
-let manager;
-let hotel;
+let currentManager;
+let currentHotel;
 let bookingData;
 let userData;
 let roomData;
@@ -40,6 +39,8 @@ function defineApiData(bookings, users, rooms) {
   roomData = rooms;
 }
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 function handleFormClick(event) {
   const usernameInput = document.querySelector('.login-username-input');
   const passwordInput = document.querySelector('.login-password-input');
@@ -52,12 +53,14 @@ function handleFormClick(event) {
 }
 
 function createUser(enteredUsername, enteredPassword) {
-  currentUser = new User(enteredUsername);
+  const currentUser = new User(enteredUsername);
   const userType = currentUser.validateUser(enteredPassword);
   if (userType === "guest") {
-    createGuest(enteredUsername)
+    createGuest(currentUser)
+    clearError()
   } else if (userType === "manager") {
-    createManager(enteredUsername)
+    createManager(currentUser)
+    clearError();
   } else {
     displayLoginError(userType)
   }
@@ -68,12 +71,22 @@ function clearForm(usernameInput, passwordInput) {
   passwordInput.value = "";
 }
 
-function createGuest(enteredUsername) {
-  console.log(userData);
+function createGuest(currentUser) {
+  const matchedGuest = userData.find(user => {
+    return user.id === currentUser.id;
+  })
+  currentGuest = new Guest(`customer${matchedGuest.id}`, matchedGuest.name)
 }
 
-function createManager(enteredUsername) {
-  console.log("you created a manager!");
+function createManager(currentUser) {
+  currentManager = new Manager(currentUser.username);
+  console.log(currentManager);
+}
+
+function clearError() {
+  if (loginForm.children[4]) {
+    loginForm.children[4].remove();
+  }
 }
 
 function displayLoginError(errorMessage) {
