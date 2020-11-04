@@ -20,15 +20,24 @@ let roomData;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-window.addEventListener("load", getApiData)
+window.addEventListener("load", getApiData);
 loginForm.addEventListener("click", handleFormClick);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function getApiData() {
-  bookingData = apiData.getBookingData();
-  userData = apiData.getUserData();
-  roomData = apiData.getRoomData();
+  const bookings = apiData.getBookingData();
+  const users  = apiData.getUserData();
+  const rooms = roomData = apiData.getRoomData();
+  Promise.all([bookings, users, rooms]).then(data => {
+    defineApiData(data[0], data[1], data[2]);
+  })
+}
+
+function defineApiData(bookings, users, rooms) {
+  bookingData = bookings;
+  userData = users;
+  roomData = rooms;
 }
 
 function handleFormClick(event) {
@@ -38,6 +47,7 @@ function handleFormClick(event) {
   && usernameInput.value !== ""
   && passwordInput.value !== "") {
     createUser(usernameInput.value, passwordInput.value);
+    clearForm(usernameInput, passwordInput)
   }
 }
 
@@ -51,6 +61,11 @@ function createUser(enteredUsername, enteredPassword) {
   } else {
     displayLoginError(userType)
   }
+}
+
+function clearForm(usernameInput, passwordInput) {
+  usernameInput.value = "";
+  passwordInput.value = "";
 }
 
 function createGuest(enteredUsername) {
