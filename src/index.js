@@ -4,6 +4,7 @@ import User from './User';
 import Guest from './Guest';
 import Manager from './Manager';
 import Hotel from './Hotel';
+import { apiData } from './api-data'
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -13,6 +14,9 @@ let currentUser;
 let currentGuest;
 let manager;
 let hotel;
+let bookingData;
+let userData;
+let roomData;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -22,18 +26,9 @@ loginForm.addEventListener("click", handleFormClick);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function getApiData() {
-  let bookingData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
-    .then(response => response.json())
-    .then(data => data.bookings)
-    // .then(error) => console.log(error.message)
-  let userData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
-    .then(response => response.json())
-    .then(data => data.users)
-    // .catch(error) => console.log(error.message)
-  let roomData = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
-    .then(response => response.json())
-    .then(data => data.rooms)
-    // .catch(error) => console.log(error.message)
+  bookingData = apiData.getBookingData();
+  userData = apiData.getUserData();
+  roomData = apiData.getRoomData();
 }
 
 function handleFormClick(event) {
@@ -59,7 +54,7 @@ function createUser(enteredUsername, enteredPassword) {
 }
 
 function createGuest(enteredUsername) {
-  console.log("you created a guest!");
+  console.log(userData);
 }
 
 function createManager(enteredUsername) {
@@ -71,10 +66,3 @@ function displayLoginError(errorMessage) {
   `<h4 class="error-message">${errorMessage}</h4>`
   loginForm.insertAdjacentHTML('beforeend', messageBlock);
 }
-
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)

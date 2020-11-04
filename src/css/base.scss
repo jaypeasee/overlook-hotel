@@ -22,11 +22,13 @@ main {
 
 h1 {
   font-size: 2em;
+  color: $dark-blue;
 }
 
 .login-form {
   @include flex-column;
   background-color: $dark-tan;
+  color: $dark-blue;
   margin: 7%;
   width: 50%;
   height: 50vh;
@@ -48,6 +50,6 @@ h1 {
 }
 
 .error-message {
-  color: $dark-blue;
+  color: $error-red;
   align-self: center;
 }
