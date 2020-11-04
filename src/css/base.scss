@@ -1,5 +1,41 @@
 @import 'variables';
 
+html {
+  font-family: 'Poppins', sans-serif;
+}
+
 body {
   background: $light-blue;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background-color: #e7dec8;
+  @include flex-column;
+  height: 25vh;
+}
+
+main {
+  @include flex-column;
+}
+
+.login-form {
+  @include flex-column;
+  background-color: $dark-tan;
+  margin: 7%;
+  width: 50%;
+  height: 50vh;
+  border-radius: 10px;
+  box-shadow: 3px 4px #00000070;
+}
+
+.login-input {
+  @include inputs;
+}
+
+.login-button {
+  @include inputs;
+  background-color: $dark-blue;
+  color: #FFF;
 }
