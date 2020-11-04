@@ -1,7 +1,55 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+@import 'variables';
+
+html {
+  font-family: 'Poppins', sans-serif;
+}
 
 body {
-  background: $primary-background;
+  background: $light-blue;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background-color: #e7dec8;
+  @include flex-column;
+  height: 25vh;
+}
+
+main {
+  @include flex-column;
+}
+
+h1 {
+  font-size: 2em;
+  color: $dark-blue;
+}
+
+.login-form {
+  @include flex-column;
+  background-color: $dark-tan;
+  color: $dark-blue;
+  margin: 7%;
+  width: 50%;
+  height: 50vh;
+  border-radius: 10px;
+  box-shadow: 3px 4px #00000070;
+  ::-webkit-input-placeholder {
+    text-align: center;
+  }
+}
+
+.login-input {
+  @include inputs;
+}
+
+.login-button {
+  @include inputs;
+  background-color: $dark-blue;
+  color: #FFF;
+}
+
+.error-message {
+  color: $error-red;
+  align-self: center;
 }
