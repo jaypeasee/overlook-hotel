@@ -3,8 +3,13 @@ class Hotel {
     this.rooms = rooms;
   }
 
-// need to clean this up and find the taken rooms here instead of in scripts
-  retrieveAvailableRooms(takenRoomNumbers) {
+  retrieveAvailableRooms(datePicked, allBookings) {
+    const takenRoomNumbers = allBookings.reduce((acc, booking) => {
+      if (booking.date === datePicked) {
+        acc.push(booking.roomNumber);
+      }
+      return acc;
+    }, [])
     const availableRooms = this.rooms.filter(room => {
       return !takenRoomNumbers.includes(room.number);
     })
@@ -13,8 +18,8 @@ class Hotel {
     }
   }
 
-  filterRoomsByType(roomNumbers, roomType) {
-    const matchedRooms = this.retrieveAvailableRooms(roomNumbers);
+  filterRoomsByType(datePicked, allBookings, roomType) {
+    const matchedRooms = this.retrieveAvailableRooms(datePicked, allBookings);
     const roomsByType = matchedRooms.filter(room => {
       return room.roomType === roomType;
     })

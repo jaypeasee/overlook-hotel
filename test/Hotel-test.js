@@ -8,6 +8,11 @@ describe('Hotel', () => {
   let room3;
   let room4;
   let hotel;
+  let booking1;
+  let booking2;
+  let booking3;
+  let booking4;
+  let allBookings;
 
   beforeEach(() => {
     room1 = {
@@ -44,7 +49,42 @@ describe('Hotel', () => {
       numBeds: 1,
       costPerNight: 305.85
     };
+
     hotel = new Hotel([room1, room2, room3, room4]);
+
+    booking1 = {
+      id: "5fwrgu4i7k55hl6sz",
+      userID: 1,
+      date:"2020/12/22",
+      roomNumber: 25,
+      roomServiceCharges: []
+    };
+
+    booking2 = {
+      id: "5fwrgu4i7k55hl8bkl",
+      userID: 1,
+      date: "2020/06/18",
+      roomNumber: 1,
+      roomServiceCharges: []
+    };
+
+    booking3 = {
+      id: "5fwrgu4i7k55hl6tr",
+      userID : 45,
+      date: "2020/01/24",
+      roomNumber: 12,
+      roomServiceCharges: []
+    };
+
+    booking4 = {
+      id: "5fwrgu4i7k55hl6tv",
+      userID: 2,
+      date: new Date().toISOString().split('T')[0],
+      roomNumber: 13,
+      roomServiceCharges: []
+    }
+
+    allBookings = [booking1, booking2, booking3, booking4];
   })
 
   it('should be a function', () => {
@@ -59,21 +99,19 @@ describe('Hotel', () => {
     expect(hotel.rooms).to.deep.equal([room1, room2, room3, room4]);
   })
 
-//take in array of room numbers that are taken based on the date
-  it('should retrieve a list of available rooms', () => {
-    expect(hotel.retrieveAvailableRooms([1, 25])).to.deep.equal([room2, room3]);
+  it('should retrieve a list of available rooms by date', () => {
+    expect(hotel.retrieveAvailableRooms("2020/01/24", allBookings)).to.deep.equal([room1, room3, room4]);
   })
 
   it('should be able to retrieve a different list of available rooms', () => {
-    expect(hotel.retrieveAvailableRooms([12, 13])).to.deep.equal([room1, room4]);
+    expect(hotel.retrieveAvailableRooms("2020/06/18", allBookings)).to.deep.equal([room2, room3, room4]);
   })
 
-  //do i need to invoke retrieveAvailableRooms in order for this to work live?
   it('should be able to filter available rooms by type', () => {
-    expect(hotel.filterRoomsByType([25], 'single room')).to.deep.equal([room2, room3]);
+    expect(hotel.filterRoomsByType("2020/12/22", allBookings, 'single room')).to.deep.equal([room2, room3]);
   })
 
   it('should be able to filter available rooms by a different type', () => {
-    expect(hotel.filterRoomsByType([12, 13], 'residential suite')).to.deep.equal([room1]);
+    expect(hotel.filterRoomsByType("2020/12/22", allBookings, 'residential suite')).to.deep.equal([room1]);
   })
 })

@@ -7,9 +7,9 @@ class User {
   }
 
   validateUser(enteredPW) {
-    if (this.username === "manager" && enteredPW === "overlook2020") {
+    if (this.username === "manager" && enteredPW === this.password) {
       return "manager";
-    } else if (this.username.includes("customer") && this.id < 50 && enteredPW === "overlook2020") {
+    } else if (this.username.includes("customer") && this.id < 50 && enteredPW === this.password) {
       return "guest";
     } else {
       return "Please enter a valid username and password.";
