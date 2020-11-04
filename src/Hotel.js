@@ -3,6 +3,7 @@ class Hotel {
     this.rooms = rooms;
   }
 
+// need to clean this up and find the taken rooms here instead of in scripts
   retrieveAvailableRooms(takenRoomNumbers) {
     const availableRooms = this.rooms.filter(room => {
       return !takenRoomNumbers.includes(room.number);

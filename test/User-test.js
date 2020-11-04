@@ -35,19 +35,19 @@ describe('User', () => {
   })
 
   it('should be able to have a manager username', () => {
-    expect(user3.username).to.equal("manager")
+    expect(user3.username).to.equal("manager");
   })
 
   it('should have an id based on the username', () => {
-    expect(user1.id).to.equal(1)
+    expect(user1.id).to.equal(1);
   })
 
   it('should have a different id based on the username', () => {
-    expect(user2.id).to.equal(2)
+    expect(user2.id).to.equal(2);
   })
 
   it('should have an id of 0 if it is the manager', () => {
-    expect(user3.id).to.equal(0)
+    expect(user3.id).to.equal(0);
   })
 
   it('should have today\'s date', () => {
