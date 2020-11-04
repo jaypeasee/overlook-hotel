@@ -15,7 +15,6 @@ let currentManager;
 let currentHotel;
 let bookingData;
 let userData;
-let roomData;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -27,7 +26,7 @@ loginForm.addEventListener("click", handleFormClick);
 function getApiData() {
   const bookings = apiData.getBookingData();
   const users  = apiData.getUserData();
-  const rooms = roomData = apiData.getRoomData();
+  const rooms = apiData.getRoomData();
   Promise.all([bookings, users, rooms]).then(data => {
     defineApiData(data[0], data[1], data[2]);
   })
@@ -36,7 +35,7 @@ function getApiData() {
 function defineApiData(bookings, users, rooms) {
   bookingData = bookings;
   userData = users;
-  roomData = rooms;
+  currentHotel = new Hotel(rooms);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,7 +79,7 @@ function createGuest(currentUser) {
 
 function createManager(currentUser) {
   currentManager = new Manager(currentUser.username);
-  console.log(currentManager);
+  console.log(currentManager)
 }
 
 function clearError() {
