@@ -8,8 +8,9 @@ import { apiData } from './api-data'
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+const mainSection = document.querySelector('main');
+const navSection = document.querySelector('nav');
 const loginForm = document.querySelector('.login-form');
-
 let currentGuest;
 let currentManager;
 let currentHotel;
@@ -47,7 +48,7 @@ function handleFormClick(event) {
   && usernameInput.value !== ""
   && passwordInput.value !== "") {
     createUser(usernameInput.value, passwordInput.value);
-    clearForm(usernameInput, passwordInput)
+    clearForm(usernameInput, passwordInput);
   }
 }
 
@@ -55,13 +56,13 @@ function createUser(enteredUsername, enteredPassword) {
   const currentUser = new User(enteredUsername);
   const userType = currentUser.validateUser(enteredPassword);
   if (userType === "guest") {
-    createGuest(currentUser)
-    clearError()
+    createGuest(currentUser);
+    clearError();
   } else if (userType === "manager") {
-    createManager(currentUser)
+    createManager(currentUser);
     clearError();
   } else {
-    displayLoginError(userType)
+    displayLoginError(userType);
   }
 }
 
@@ -74,12 +75,18 @@ function createGuest(currentUser) {
   const matchedGuest = userData.find(user => {
     return user.id === currentUser.id;
   })
-  currentGuest = new Guest(`customer${matchedGuest.id}`, matchedGuest.name)
+  currentGuest = new Guest(`customer${matchedGuest.id}`, matchedGuest.name);
+  clearHome();
 }
 
 function createManager(currentUser) {
   currentManager = new Manager(currentUser.username);
-  console.log(currentManager)
+  clearHome();
+}
+
+function clearHome() {
+  mainSection.innerHTML = "";
+  navSection.innerHTML = "";
 }
 
 function clearError() {
@@ -90,6 +97,6 @@ function clearError() {
 
 function displayLoginError(errorMessage) {
   const messageBlock =
-  `<h4 class="error-message">${errorMessage}</h4>`
+  `<h4 class="error-message">${errorMessage}</h4>`;
   loginForm.insertAdjacentHTML('beforeend', messageBlock);
 }
