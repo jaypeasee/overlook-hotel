@@ -53,4 +53,26 @@ describe('User', () => {
   it('should have today\'s date', () => {
     expect(user1.date).to.equal(new Date().toISOString().split('T')[0]);
   })
+
+  it('should determine if it\'s user type is a manager', () => {
+    expect(user3.validateUser("overlook2020")).to.equal("manager")
+  })
+
+  it('should determine if it\'s user type is a guest', () => {
+    expect(user1.validateUser("overlook2020")).to.equal("guest")
+  })
+
+  it('should invalidate the user if it\s password is incorrect', () => {
+    expect(user1.validateUser("I solemnly swear that I am up to no good")).to.equal("Please enter a valid username and password.")
+  })
+
+  it('should invalidate the user if it\s id is greater than 50', () => {
+    const user4 = new User("customer51")
+    expect(user4.validateUser("overlook2020")).to.equal("Please enter a valid username and password.");
+  })
+
+  it('should invalidate the user if it\'s username does not contain "manager" or "customer"', () => {
+    const user4 = new User("custoomer1")
+    expect(user4.validateUser("overlook2020")).to.equal("Please enter a valid username and password.");
+  })
 })
