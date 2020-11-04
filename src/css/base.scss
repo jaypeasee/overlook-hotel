@@ -20,6 +20,10 @@ main {
   @include flex-column;
 }
 
+h1 {
+  font-size: 2em;
+}
+
 .login-form {
   @include flex-column;
   background-color: $dark-tan;
@@ -28,6 +32,9 @@ main {
   height: 50vh;
   border-radius: 10px;
   box-shadow: 3px 4px #00000070;
+  ::-webkit-input-placeholder {
+    text-align: center;
+  }
 }
 
 .login-input {
@@ -38,4 +45,9 @@ main {
   @include inputs;
   background-color: $dark-blue;
   color: #FFF;
+}
+
+.error-message {
+  color: $dark-blue;
+  align-self: center;
 }
