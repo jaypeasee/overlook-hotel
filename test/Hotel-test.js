@@ -127,4 +127,9 @@ describe('Hotel', () => {
     hotel.date = "2020/12/22";
     expect(hotel.filterRoomsByType(allBookings, 'residential suite')).to.deep.equal([room1]);
   })
+
+  it('should be able to show all rooms when it doesn\'t want to filter by a room type', () => {
+    hotel.date = "2020/06/18";
+    expect(hotel.filterRoomsByType(allBookings, 'all rooms')).to.deep.equal([room2, room3, room4]);
+  })
 })

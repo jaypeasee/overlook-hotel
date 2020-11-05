@@ -201,7 +201,7 @@ function displayFilteredRoomsByDate(dateInput, event) {
 }
 
 function removeDateError(event) {
-  if (event.target.nextElementSibling.className === "date-error") {
+  if (event.target.nextElementSibling) {
     event.target.nextElementSibling.remove();
   }
 }
@@ -212,10 +212,11 @@ function displayRoomTypeForm() {
     <h2 class="filter-room-title">Filter These Rooms By Type</h2>
     <div class="filter-form-inputs">
       <select name="room-types" id="room-types" class="room-type-inputs">
-        <option value="all-rooms">all rooms</option>
-        <option value="residential-suite">residential suite</option>
+        <option value="all rooms">all rooms</option>
+        <option value="residential suite">residential suite</option>
         <option value="suite">suite</option>
-        <option value="single-room">single room</option>
+        <option value="junior suite">junior suite</option>
+        <option value="single room">single room</option>
       </select>
       <button class="room-type-button">FILTER YOUR SEARCH</button>
     </div>
@@ -264,6 +265,7 @@ function handleMainSectionClick(event) {
 function handleRoomTypeFilter(event) {
   const selectedType = event.target.previousElementSibling
   const filteredRooms = currentHotel.filterRoomsByType(bookingData, selectedType.value);
+  console.log(filteredRooms);
   mainSection.innerHTML = "";
   displayHeading(`Available Rooms For ${currentHotel.date}`);
   displayRoomTypeForm()
