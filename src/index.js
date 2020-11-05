@@ -143,7 +143,6 @@ function displayBookings(cardTitle, bookings) {
 //these bookings need to get sorted in the Guest class
 function displayBookingsList(bookings) {
   const listBlock = mainSection.lastChild.children[1];
-  console.log(listBlock)
   bookings.forEach(booking => {
     const listItem =
     `<li class="booking-list-item">Room ${booking.roomNumber} on ${booking.date}</li>`;
