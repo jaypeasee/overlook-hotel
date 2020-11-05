@@ -205,7 +205,7 @@ describe('Guest', () => {
     expect(guest1.futureBookings).to.deep.equal([booking7, booking1, booking8])
   })
 
-  it.only('should be able to sort its future bookings by closest date to today', () => {
+  it('should be able to sort its future bookings by closest date to today', () => {
     guest1.retrieveAllBookings(allBookings);
     guest1.sortBookingsByDate("past");
     expect(guest1.pastBookings).to.deep.equal([booking6, booking2, booking5])

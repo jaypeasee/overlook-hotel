@@ -2,7 +2,7 @@ import chai from 'chai';
 const expect = chai.expect;
 import Hotel from '../src/Hotel';
 
-describe('Hotel', () => {
+describe.only('Hotel', () => {
   let room1;
   let room2;
   let room3;
@@ -99,23 +99,32 @@ describe('Hotel', () => {
     expect(hotel.rooms).to.deep.equal([room1, room2, room3, room4]);
   })
 
-  it.only('should have an undefined date to start', () => {
+  it('should have an undefined date to start', () => {
     expect(hotel.date).to.equal(undefined);
   })
 
+  it('should be able to assign a date', () => {
+    hotel.date = "2020/01/24";
+    expect(hotel.date).to.equal("2020/01/24");
+  })
+
   it('should retrieve a list of available rooms by date', () => {
-    expect(hotel.retrieveAvailableRooms("2020/01/24", allBookings)).to.deep.equal([room1, room3, room4]);
+    hotel.date = "2020/01/24";
+    expect(hotel.retrieveAvailableRooms(allBookings)).to.deep.equal([room1, room3, room4]);
   })
 
   it('should be able to retrieve a different list of available rooms', () => {
-    expect(hotel.retrieveAvailableRooms("2020/06/18", allBookings)).to.deep.equal([room2, room3, room4]);
+    hotel.date = "2020/06/18"
+    expect(hotel.retrieveAvailableRooms(allBookings)).to.deep.equal([room2, room3, room4]);
   })
 
   it('should be able to filter available rooms by type', () => {
-    expect(hotel.filterRoomsByType("2020/12/22", allBookings, 'single room')).to.deep.equal([room2, room3]);
+    hotel.date = "2020/12/22";
+    expect(hotel.filterRoomsByType(allBookings, 'single room')).to.deep.equal([room2, room3]);
   })
 
   it('should be able to filter available rooms by a different type', () => {
-    expect(hotel.filterRoomsByType("2020/12/22", allBookings, 'residential suite')).to.deep.equal([room1]);
+    hotel.date = "2020/12/22";
+    expect(hotel.filterRoomsByType(allBookings, 'residential suite')).to.deep.equal([room1]);
   })
 })
