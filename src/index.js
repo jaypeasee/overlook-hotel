@@ -76,7 +76,43 @@ function createGuest(currentUser) {
     return user.id === currentUser.id;
   })
   currentGuest = new Guest(`customer${matchedGuest.id}`, matchedGuest.name);
+  runGuestMethods()
+  displayGuestHome();
+}
+
+function runGuestMethods() {
+  currentGuest.calculateTotalSpent(bookingData, currentHotel);
+}
+
+function displayGuestHome() {
   clearHome();
+  displayGuestNav();
+  displayHeading("Your Reservations");
+}
+
+function displayGuestNav() {
+  const navBlock =
+    `<div class="guest-nav">
+      <div class="nav-headings">
+        <h2 class="nav-text">Welcome ${currentGuest.name}!</h2>
+        <h3 class="nav-text">${currentGuest.date}</h3>
+      </div>
+      <div class="nav-details">
+        <article class="nav-booking-form">
+          <h3 class="nav-form-heading nav-text">Book A Room</h3>
+          <input aria-label="date-input" type="date" class="date-availability-input">
+          <button class="date-availability-button">CHECK AVAILABILITY!</button>
+        </article>
+        <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent}</h4>
+      </div>
+    </div>`
+  navSection.insertAdjacentHTML('afterbegin', navBlock);
+}
+
+function displayHeading(sectionHeading) {
+  const headingBlock =
+  `<h1 class="main-title">${sectionHeading}</h1>`;
+  mainSection.insertAdjacentHTML('afterbegin', headingBlock);
 }
 
 function createManager(currentUser) {

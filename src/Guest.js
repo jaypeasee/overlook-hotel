@@ -17,7 +17,7 @@ class Guest extends User {
   }
 
   calculateTotalSpent(allBookings, hotel) {
-    const guestHistory = this.findBookingRecords(allBookings)
+    const guestHistory = this.findBookingRecords(allBookings);
     hotel.rooms.forEach(room => {
       guestHistory.forEach(booking => {
         if (booking.roomNumber === room.number) {
