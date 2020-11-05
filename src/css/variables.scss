@@ -4,14 +4,14 @@ $light-blue: #7e8a97;
 $dark-blue: #30475e;
 $error-red: #ff3333;
 
-@mixin flex-column {
+@mixin flex-center-column {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-@mixin inputs {
+@mixin login-inputs {
   width: 50%;
   margin: 2%;
   height: 30px;
@@ -19,4 +19,22 @@ $error-red: #ff3333;
   border: black solid .25px;
   outline: none;
   padding: 0 2% 0 2%;
+}
+
+@mixin nav-inputs {
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  margin: 1.5% 0;
+}
+
+@mixin cards {
+  background-color: $dark-tan;
+  color: $dark-blue;
+  margin: 7%;
+  width: 50%;
+  height: 50vh;
+  border-radius: 10px;
+  box-shadow: 3px 4px #00000070;
 }
