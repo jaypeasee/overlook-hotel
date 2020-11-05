@@ -21,7 +21,8 @@ let userData;
 
 window.addEventListener("load", getApiData);
 loginForm.addEventListener("click", handleLoginClick);
-navSection.addEventListener("click", handleNavClick)
+navSection.addEventListener("click", handleNavClick);
+mainSection.addEventListener("click", handleMainSectionClick)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -209,7 +210,7 @@ function displayRoomTypeForm() {
 
 function findOpenRooms(datePicked) {
   currentHotel.date = datePicked.replace('-', '/').replace('-', '/')
-  const availableRooms = currentHotel.retrieveAvailableRooms(currentHotel, bookingData);
+  const availableRooms = currentHotel.retrieveAvailableRooms(bookingData);
   displayAvailableRooms(availableRooms);
 }
 
@@ -228,4 +229,21 @@ function displayAvailableRooms(availableRooms) {
     </article>`
     mainSection.insertAdjacentHTML('beforeEnd', roomBlock)
   })
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function handleMainSectionClick(event) {
+  if (event.target.className === 'room-type-button') {
+    handleRoomTypeFilter(event);
+  }
+}
+
+function handleRoomTypeFilter(event) {
+  const selectedType = event.target.previousElementSibling
+  const filteredRooms = currentHotel.filterRoomsByType(bookingData, selectedType.value);
+  mainSection.innerHTML = "";
+  displayHeading(`Available Rooms For ${currentHotel.date}`);
+  displayRoomTypeForm()
+  displayAvailableRooms(filteredRooms);
 }

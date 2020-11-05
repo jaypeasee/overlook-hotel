@@ -4,10 +4,9 @@ class Hotel {
     this.date = undefined;
   }
 
-  retrieveAvailableRooms(datePicked, allBookings) {
-    console.log(datePicked);
+  retrieveAvailableRooms(allBookings) {
     const takenRoomNumbers = allBookings.reduce((acc, booking) => {
-      if (booking.date === datePicked) {
+      if (booking.date === this.date) {
         acc.push(booking.roomNumber);
       }
       return acc;
@@ -20,8 +19,8 @@ class Hotel {
     }
   }
 
-  filterRoomsByType(datePicked, allBookings, roomType) {
-    const matchedRooms = this.retrieveAvailableRooms(datePicked, allBookings);
+  filterRoomsByType(allBookings, roomType) {
+    const matchedRooms = this.retrieveAvailableRooms(allBookings);
     const roomsByType = matchedRooms.filter(room => {
       return room.roomType === roomType;
     })
