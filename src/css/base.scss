@@ -116,14 +116,45 @@ li {
   width: 100%;
 }
 
+.room-cards {
+  @include cards;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-card-title {
+  align-self: center;
+}
+
+.room-list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  list-style: circle;
+}
+
+.room-list-item {
+  align-self: flex-start;
+}
+
+.book-room-button {
+  margin: 10%;
+  align-self: center;
+  @include button-colors;
+  width: 50%;
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+}
+
 .login-input {
   @include login-inputs;
 }
 
 .login-button {
   @include login-inputs;
-  background-color: $dark-blue;
-  color: #FFF;
+  @include button-colors;
 }
 
 .error-message {

@@ -178,13 +178,36 @@ function displayLoginError(errorMessage) {
 
 function handleNavClick(event) {
   if (event.target.className === "date-availability-button") {
-    const dateInput = event.target.previousElementSibling;
-    displayAvailableRooms(dateInput.value)
+    handleAvailableRoomsDisplay(event)
   }
 }
 
-function displayAvailableRooms(datePicked) {
+function handleAvailableRoomsDisplay(event) {
+  const dateInput = event.target.previousElementSibling;
+  mainSection.innerHTML = "";
+  displayHeading(`Available Rooms For ${dateInput.value}`);
+  findOpenRooms(dateInput.value);
+}
+
+function findOpenRooms(datePicked) {
   const formattedDate = datePicked.replace('-', '/').replace('-', '/');
-  const availableRooms = currentHotel.retrieveAvailableRooms(formattedDate, bookingData)
-  console.log(availableRooms);
+  const availableRooms = currentHotel.retrieveAvailableRooms(formattedDate, bookingData);
+  displayAvailableRooms(availableRooms);
+}
+
+function displayAvailableRooms(availableRooms) {
+  availableRooms.forEach(room => {
+    const roomBlock =
+    `<article class="room-cards">
+      <h2 class="room-card-title">Room ${room.number}</h2>
+      <ul class="room-list">
+        <li class="room-list-item"><h3>${room.roomType}</h3></li>
+        <li class="room-list-item">${room.numBeds} ${room.bedSize} size beds</li>
+        <li class="room-list-item">Cost Per Night: $${room.costPerNight}</li>
+        <li class="room-list-item">Bidet?: ${room.bidet}</li>
+      </ul>
+      <button class="book-room-button">BOOK THIS ROOM</button>
+    </article>`
+    mainSection.insertAdjacentHTML('beforeEnd', roomBlock)
+  })
 }
