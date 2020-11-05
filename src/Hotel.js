@@ -4,6 +4,7 @@ class Hotel {
   }
 
   retrieveAvailableRooms(datePicked, allBookings) {
+    console.log(datePicked);
     const takenRoomNumbers = allBookings.reduce((acc, booking) => {
       if (booking.date === datePicked) {
         acc.push(booking.roomNumber);

@@ -20,7 +20,8 @@ let userData;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 window.addEventListener("load", getApiData);
-loginForm.addEventListener("click", handleFormClick);
+loginForm.addEventListener("click", handleLoginClick);
+navSection.addEventListener("click", handleNavClick)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -41,7 +42,7 @@ function defineApiData(bookings, users, rooms) {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function handleFormClick(event) {
+function handleLoginClick(event) {
   const usernameInput = document.querySelector('.login-username-input');
   const passwordInput = document.querySelector('.login-password-input');
   if (event.target.className === "login-button"
@@ -142,7 +143,6 @@ function displayBookings(cardTitle, bookings) {
   displayBookingsList(bookings);
 }
 
-//these bookings need to get sorted in the Guest class
 function displayBookingsList(bookings) {
   const listBlock = mainSection.lastChild.children[1];
   bookings.forEach(booking => {
@@ -172,4 +172,19 @@ function displayLoginError(errorMessage) {
   const messageBlock =
   `<h4 class="error-message">${errorMessage}</h4>`;
   loginForm.insertAdjacentHTML('beforeend', messageBlock);
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function handleNavClick(event) {
+  if (event.target.className === "date-availability-button") {
+    const dateInput = event.target.previousElementSibling;
+    displayAvailableRooms(dateInput.value)
+  }
+}
+
+function displayAvailableRooms(datePicked) {
+  const formattedDate = datePicked.replace('-', '/').replace('-', '/');
+  const availableRooms = currentHotel.retrieveAvailableRooms(formattedDate, bookingData)
+  console.log(availableRooms);
 }
