@@ -82,12 +82,14 @@ function createGuest(currentUser) {
 
 function runGuestMethods() {
   currentGuest.calculateTotalSpent(bookingData, currentHotel);
+  currentGuest.retrieveAllBookings(bookingData);
 }
 
 function displayGuestHome() {
   clearHome();
   displayGuestNav();
   displayHeading("Your Reservations");
+  handleBookingsDisplay()
 }
 
 function displayGuestNav() {
@@ -113,6 +115,40 @@ function displayHeading(sectionHeading) {
   const headingBlock =
   `<h1 class="main-title">${sectionHeading}</h1>`;
   mainSection.insertAdjacentHTML('afterbegin', headingBlock);
+}
+
+function handleBookingsDisplay() {
+  if (currentGuest.presentBookings.length > 0) {
+    displayBookings('Current Bookings', currentGuest.presentBookings);
+  }
+  if (currentGuest.futureBookings.length > 0) {
+    displayBookings('Future Bookings', currentGuest.futureBookings);
+  }
+  if (currentGuest.pastBookings.length > 0) {
+    displayBookings('Past Bookings', currentGuest.pastBookings);
+  }
+}
+
+function displayBookings(cardTitle, bookings) {
+  const bookingBlock =
+    `<article class="reservation-cards">
+      <h2>${cardTitle}</h2>
+      <ul class="room-history-list">
+      </ul>
+    </article>`
+  mainSection.insertAdjacentHTML('beforeend', bookingBlock);
+  displayBookingsList(bookings);
+}
+
+//these bookings need to get sorted in the Guest class
+function displayBookingsList(bookings) {
+  const listBlock = mainSection.lastChild.children[1];
+  console.log(listBlock)
+  bookings.forEach(booking => {
+    const listItem =
+    `<li class="booking-list-item">Room ${booking.roomNumber} on ${booking.date}</li>`;
+    listBlock.insertAdjacentHTML('beforeend', listItem);
+  })
 }
 
 function createManager(currentUser) {
