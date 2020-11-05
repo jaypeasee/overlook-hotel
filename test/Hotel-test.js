@@ -2,7 +2,7 @@ import chai from 'chai';
 const expect = chai.expect;
 import Hotel from '../src/Hotel';
 
-describe.only('Hotel', () => {
+describe('Hotel', () => {
   let room1;
   let room2;
   let room3;

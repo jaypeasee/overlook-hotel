@@ -187,8 +187,8 @@ describe('Guest', () => {
     guest1.retrieveAllBookings(allBookings);
 
     expect(guest1.presentBookings).to.deep.equal([]);
-    expect(guest1.futureBookings).to.deep.equal([booking1]);
-    expect(guest1.pastBookings).to.deep.equal([booking2]);
+    expect(guest1.futureBookings).to.deep.equal([booking1, booking7, booking8]);
+    expect(guest1.pastBookings).to.deep.equal([booking2, booking5, booking6]);
   })
 
   it('should be able to organize its booking history for different user', () => {
