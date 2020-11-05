@@ -83,6 +83,8 @@ function createGuest(currentUser) {
 function runGuestMethods() {
   currentGuest.calculateTotalSpent(bookingData, currentHotel);
   currentGuest.retrieveAllBookings(bookingData);
+  currentGuest.sortBookingsByDate("future");
+  currentGuest.sortBookingsByDate("past");
 }
 
 function displayGuestHome() {
@@ -145,7 +147,7 @@ function displayBookingsList(bookings) {
   const listBlock = mainSection.lastChild.children[1];
   bookings.forEach(booking => {
     const listItem =
-    `<li class="booking-list-item">Room ${booking.roomNumber} on ${booking.date}</li>`;
+    `<li>Room ${booking.roomNumber} on ${booking.date}</li>`;
     listBlock.insertAdjacentHTML('beforeend', listItem);
   })
 }

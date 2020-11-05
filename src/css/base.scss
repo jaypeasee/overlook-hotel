@@ -28,7 +28,9 @@ h1 {
 }
 
 li {
-  padding: 5% 15%;
+  padding: 2% 15%;
+  display: flex;
+  justify-content: center;
 }
 
 .login-title {
@@ -93,6 +95,7 @@ li {
 }
 
 .login-form {
+  height: 50vh;
   @include flex-center-column;
   @include cards;
   ::-webkit-input-placeholder {
@@ -110,6 +113,7 @@ li {
 .room-history-list {
   list-style: none;
   padding-left: 0;
+  width: 100%;
 }
 
 .login-input {
