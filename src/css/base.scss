@@ -14,7 +14,7 @@ nav {
   background-color: #e7dec8;
   display: flex;
   flex-direction: column;
-  height: 28vh;
+  height: 33vh;
 }
 
 main {
@@ -125,6 +125,7 @@ li {
 
 .room-card-title {
   align-self: center;
+  margin-bottom: 0;
 }
 
 .room-list {
@@ -140,7 +141,7 @@ li {
 }
 
 .book-room-button {
-  margin: 10%;
+  margin: 0 8% 8% 8%;
   align-self: center;
   @include button-colors;
   width: 50%;
@@ -205,4 +206,9 @@ li {
 .error-message {
   color: $error-red;
   align-self: center;
+}
+
+.date-error {
+  color: $error-red;
+  margin: 1%;
 }

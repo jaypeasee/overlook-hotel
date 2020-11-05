@@ -185,10 +185,25 @@ function handleNavClick(event) {
 
 function handleAvailableRoomsDisplay(event) {
   const dateInput = event.target.previousElementSibling;
+  if (currentGuest.date <= dateInput.value) {
+    displayFilteredRoomsByDate(dateInput, event)
+  } else {
+    displayDateError(event);
+  }
+}
+
+function displayFilteredRoomsByDate(dateInput, event) {
+  removeDateError(event);
   mainSection.innerHTML = "";
   displayHeading(`Available Rooms For ${dateInput.value}`);
   displayRoomTypeForm()
   findOpenRooms(dateInput.value);
+}
+
+function removeDateError(event) {
+  if (event.target.nextElementSibling.className === "date-error") {
+    event.target.nextElementSibling.remove();
+  }
 }
 
 function displayRoomTypeForm() {
@@ -229,6 +244,13 @@ function displayAvailableRooms(availableRooms) {
     </article>`
     mainSection.insertAdjacentHTML('beforeEnd', roomBlock)
   })
+}
+
+function displayDateError(event) {
+  const dateButton = event.target;
+  const errorBlock =
+  `<p class="date-error">Please enter a valid date to book<p>`
+  dateButton.insertAdjacentHTML('afterend', errorBlock);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

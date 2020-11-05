@@ -2,7 +2,7 @@ import User from './User'
 
 class Guest extends User {
   constructor(username, name) {
-    super(username)
+    super(username);
     this.name = name;
     this.presentBookings = [];
     this.futureBookings = [];
