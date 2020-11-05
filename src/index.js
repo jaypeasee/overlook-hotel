@@ -186,12 +186,30 @@ function handleAvailableRoomsDisplay(event) {
   const dateInput = event.target.previousElementSibling;
   mainSection.innerHTML = "";
   displayHeading(`Available Rooms For ${dateInput.value}`);
+  displayRoomTypeForm()
   findOpenRooms(dateInput.value);
 }
 
+function displayRoomTypeForm() {
+  const roomTypeForm =
+  `<article class="room-type-form">
+    <h2 class="filter-room-title">Filter These Rooms By Type</h2>
+    <div class="filter-form-inputs">
+      <select name="room-types" id="room-types" class="room-type-inputs">
+        <option value="all-rooms">all rooms</option>
+        <option value="residential-suite">residential suite</option>
+        <option value="suite">suite</option>
+        <option value="single-room">single room</option>
+      </select>
+      <button class="room-type-button">FILTER YOUR SEARCH</button>
+    </div>
+  </article>`;
+  mainSection.insertAdjacentHTML('beforeend', roomTypeForm)
+}
+
 function findOpenRooms(datePicked) {
-  const formattedDate = datePicked.replace('-', '/').replace('-', '/');
-  const availableRooms = currentHotel.retrieveAvailableRooms(formattedDate, bookingData);
+  currentHotel.date = datePicked.replace('-', '/').replace('-', '/')
+  const availableRooms = currentHotel.retrieveAvailableRooms(currentHotel, bookingData);
   displayAvailableRooms(availableRooms);
 }
 

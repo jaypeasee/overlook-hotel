@@ -99,6 +99,10 @@ describe('Hotel', () => {
     expect(hotel.rooms).to.deep.equal([room1, room2, room3, room4]);
   })
 
+  it.only('should have an undefined date to start', () => {
+    expect(hotel.date).to.equal(undefined);
+  })
+
   it('should retrieve a list of available rooms by date', () => {
     expect(hotel.retrieveAvailableRooms("2020/01/24", allBookings)).to.deep.equal([room1, room3, room4]);
   })

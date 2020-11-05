@@ -1,6 +1,7 @@
 class Hotel {
   constructor(rooms) {
     this.rooms = rooms;
+    this.date = undefined;
   }
 
   retrieveAvailableRooms(datePicked, allBookings) {

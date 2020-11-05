@@ -120,6 +120,7 @@ li {
   @include cards;
   display: flex;
   flex-direction: column;
+  margin: 2%;
 }
 
 .room-card-title {
@@ -135,6 +136,7 @@ li {
 
 .room-list-item {
   align-self: flex-start;
+  padding: 1% 5%;
 }
 
 .book-room-button {
@@ -146,6 +148,49 @@ li {
   border-radius: 5px;
   border: black solid .25px;
   outline: none;
+}
+
+.room-type-form {
+  width: 70%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.filter-room-title {
+  align-self: center;
+  margin: 10% 0 0 0;
+  color: $dark-blue;
+}
+
+.filter-form-inputs {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.room-type-inputs {
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  width: 33%;
+  align-self: center;
+  margin: 5% 3%
+}
+
+.room-type-button {
+  @include button-colors;
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  margin: 5% 3%;
+  width: 33%;
+  align-self: center;
 }
 
 .login-input {
