@@ -203,6 +203,74 @@ li {
   @include button-colors;
 }
 
+.manager-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.manager-nav-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.manager-nav-title-block {
+  width: 50%;
+}
+
+.manager-nav-title, {
+  margin: 2% 0 0 5%
+}
+
+.manager-nav-details-block {
+  margin: 2% 5%;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+}
+
+.manager-nav-details {
+  margin: .5% 0;
+  color: $dark-blue;
+}
+
+.manager-nav-forms {
+  display: flex;
+  justify-content: space-between;
+}
+
+.manager-user-form {
+  margin-left: 2%;
+  width: 50%;
+}
+
+.manager-date-form {
+  width: 27%;
+}
+
+.manager-nav-button {
+  @include button-colors;
+  height: 32px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  padding: 0 2% 0 2%;
+}
+
+.manager-nav-input {
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  align-self: center;
+  margin-right: 2%;
+}
+
+.manager-nav-form-title {
+  margin-top: 0;
+  color: $dark-blue;
+}
+
 .error-message {
   color: $error-red;
   align-self: center;

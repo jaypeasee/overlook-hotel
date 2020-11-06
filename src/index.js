@@ -155,13 +155,24 @@ function displayBookingsList(bookings) {
 
 function createManager(currentUser) {
   currentManager = new Manager(currentUser.username);
-  clearHome();
+  runManagerMethods();
 }
 
 function clearHome() {
   mainSection.innerHTML = "";
   navSection.innerHTML = "";
 }
+
+function runManagerMethods() {
+  const hotelOccupancy = currentManager.calculateOccupancyToday(bookingData, currentHotel.rooms.length);
+  const todaysRevenue = currentManager.calculateRevenueToday(bookingData, currentHotel);
+  displayManagerNav(hotelOccupancy, todaysRevenue)
+}
+
+function displayManagerNav(hotelOccupancy, todaysRevenue) {
+  clearHome();
+}
+
 
 function clearError() {
   if (loginForm.children[4]) {
