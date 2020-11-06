@@ -253,7 +253,7 @@ function displayAvailableRooms(availableRooms) {
 
 function displayNoVacancyMessage() {
   const apologyBlock =
-  `<h3 class="no-vacancy-message">We're sorry, but we have no vacancies for ${currentHotel.date}`;
+  `<h3 class="no-vacancy-message">There are vacancies for ${currentHotel.date}. Please choose a different date.`;
   mainSection.insertAdjacentHTML('beforeend', apologyBlock);
 }
 
@@ -270,6 +270,8 @@ function displayDateError(event) {
 function handleMainSectionClick(event) {
   if (event.target.className === 'room-type-button') {
     handleRoomTypeFilter(event);
+  } else if (event.target.className === 'book-room-button') {
+    handleRoomBooking();
   }
 }
 
@@ -284,4 +286,8 @@ function handleRoomTypeFilter(event) {
   } else {
     displayNoVacancyMessage();
   }
+}
+
+function handleRoomBooking() {
+  console.log("post request");
 }
