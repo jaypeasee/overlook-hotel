@@ -166,11 +166,43 @@ function clearHome() {
 function runManagerMethods() {
   const hotelOccupancy = currentManager.calculateOccupancyToday(bookingData, currentHotel.rooms.length);
   const todaysRevenue = currentManager.calculateRevenueToday(bookingData, currentHotel);
-  displayManagerNav(hotelOccupancy, todaysRevenue)
+  const availableRooms = currentHotel.retrieveAvailableRooms(bookingData)
+  displayManagerHomeView(hotelOccupancy, todaysRevenue, availableRooms)
 }
 
-function displayManagerNav(hotelOccupancy, todaysRevenue) {
+function displayManagerHomeView(hotelOccupancy, todaysRevenue, availableRooms) {
   clearHome();
+  displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms);
+}
+
+function displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms) {
+  const navBlock =
+  `<nav class="manager-nav">
+    <div class="manager-nav-heading">
+      <div class="manager-nav-title-block">
+        <h1 class="manager-nav-title">Welcome Manager!</h1>
+      </div>
+      <div class="manager-nav-details-block">
+        <h2 class="manager-nav-details">Today's Date: ${currentManager.date}</h2>
+        <h3 class="manager-nav-details">Available Rooms: ${availableRooms.length}</h3>
+        <h3 class="manager-nav-details">Occupancy: ${hotelOccupancy}</h3>
+        <h3 class="manager-nav-details">Total Revenue Today: $${todaysRevenue}</h3>
+      </div>
+    </div>
+    <div class="manager-nav-forms">
+      <article class="manager-user-form">
+        <h4 class="manager-nav-form-title">Look Up A Guest</h3>
+        <input type="text" placeholder="Guest Name" aria-label="guest-name-input" class="manager-nav-input">
+        <button class="manager-nav-button">SEARCH GUEST</button>
+      </article>
+      <article class="manager-date-form">
+        <h4 class="manager-nav-form-title">Search Availability By Date</h3>
+        <input type="date" aria-label="date-input" class="manager-nav-input">
+        <button class="manager-nav-button">SEARCH ROOMS</button>
+      </article>
+    </div>
+  </nav>`;
+  navSection.insertAdjacentHTML('afterbegin', navBlock);
 }
 
 

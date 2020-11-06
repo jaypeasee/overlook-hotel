@@ -14,7 +14,6 @@ nav {
   background-color: #e7dec8;
   display: flex;
   flex-direction: column;
-  height: 33vh;
 }
 
 main {
@@ -55,6 +54,7 @@ li {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2%;
 }
 
 .nav-booking-form {
@@ -237,6 +237,7 @@ li {
 .manager-nav-forms {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2%;
 }
 
 .manager-user-form {
@@ -267,7 +268,7 @@ li {
 }
 
 .manager-nav-form-title {
-  margin-top: 0;
+  margin: 0 0 1% 0;
   color: $dark-blue;
 }
 
