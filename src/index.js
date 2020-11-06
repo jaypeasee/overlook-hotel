@@ -280,12 +280,16 @@ function handleRoomTypeFilter(event) {
   const filteredRooms = currentHotel.filterRoomsByType(bookingData, selectedType.value);
   mainSection.innerHTML = "";
   if (filteredRooms.length > 0) {
-    displayHeading(`Available Rooms For ${currentHotel.date}`);
-    displayRoomTypeForm()
-    displayAvailableRooms(filteredRooms);
+    displayRoomTypeFilter(selectedType.value, filteredRooms);
   } else {
     displayNoVacancyMessage();
   }
+}
+
+function displayRoomTypeFilter(selectedType, filteredRooms) {
+  displayHeading(`Available ${selectedType}s For ${currentHotel.date}`);
+  displayRoomTypeForm()
+  displayAvailableRooms(filteredRooms);
 }
 
 function handleRoomBooking() {

@@ -19,7 +19,6 @@ class Hotel {
 
   filterRoomsByType(allBookings, roomType) {
     const matchedRooms = this.retrieveAvailableRooms(allBookings);
-    console.log(matchedRooms);
     if (roomType === "all rooms") {
       return matchedRooms;
     }
