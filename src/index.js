@@ -227,7 +227,11 @@ function displayRoomTypeForm() {
 function findOpenRooms(datePicked) {
   currentHotel.date = datePicked.replace('-', '/').replace('-', '/')
   const availableRooms = currentHotel.retrieveAvailableRooms(bookingData);
-  displayAvailableRooms(availableRooms);
+  if (availableRooms.length > 0) {
+    displayAvailableRooms(availableRooms);
+  } else {
+    displayNoVacancyMessage()
+  }
 }
 
 function displayAvailableRooms(availableRooms) {
@@ -243,11 +247,18 @@ function displayAvailableRooms(availableRooms) {
       </ul>
       <button class="book-room-button">BOOK THIS ROOM</button>
     </article>`
-    mainSection.insertAdjacentHTML('beforeEnd', roomBlock)
+    mainSection.insertAdjacentHTML('beforeend', roomBlock)
   })
 }
 
+function displayNoVacancyMessage() {
+  const apologyBlock =
+  `<h3 class="no-vacancy-message">We're sorry, but we have no vacancies for ${currentHotel.date}`;
+  mainSection.insertAdjacentHTML('beforeend', apologyBlock);
+}
+
 function displayDateError(event) {
+  removeDateError(event);
   const dateButton = event.target;
   const errorBlock =
   `<p class="date-error">Please enter a valid date to book<p>`
@@ -265,9 +276,12 @@ function handleMainSectionClick(event) {
 function handleRoomTypeFilter(event) {
   const selectedType = event.target.previousElementSibling
   const filteredRooms = currentHotel.filterRoomsByType(bookingData, selectedType.value);
-  console.log(filteredRooms);
   mainSection.innerHTML = "";
-  displayHeading(`Available Rooms For ${currentHotel.date}`);
-  displayRoomTypeForm()
-  displayAvailableRooms(filteredRooms);
+  if (filteredRooms.length > 0) {
+    displayHeading(`Available Rooms For ${currentHotel.date}`);
+    displayRoomTypeForm()
+    displayAvailableRooms(filteredRooms);
+  } else {
+    displayNoVacancyMessage();
+  }
 }
