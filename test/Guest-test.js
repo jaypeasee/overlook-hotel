@@ -15,6 +15,10 @@ describe('Guest', () => {
   let booking2;
   let booking3;
   let booking4;
+  let booking5;
+  let booking6;
+  let booking7;
+  let booking8;
   let allBookings;
 
   beforeEach(() => {
@@ -90,7 +94,49 @@ describe('Guest', () => {
       roomServiceCharges: []
     }
 
-    allBookings = [booking1, booking2, booking3, booking4];
+    booking5 = {
+      id: "5fwrgu4i7k55hl6tv",
+      userID: 1,
+      date: "2020/01/19",
+      roomNumber: 6,
+      roomServiceCharges: []
+    }
+
+    booking6 = {
+      id: "5fwrgu4i7k55hl6tv",
+      userID: 1,
+      date: "2020/09/19",
+      roomNumber: 4,
+      roomServiceCharges: []
+    }
+
+    booking7 = {
+      id: "5fwrgu4i7k55hl6tv",
+      userID: 1,
+      date: "2020/12/19",
+      roomNumber: 23,
+      roomServiceCharges: []
+    }
+
+    booking8 = {
+      id: "5fwrgu4i7k55hl6tv",
+      userID: 1,
+      date: "2020/12/25",
+      roomNumber: 23,
+      roomServiceCharges: []
+    }
+
+
+    allBookings = [
+      booking1,
+      booking2,
+      booking3,
+      booking4,
+      booking5,
+      booking6,
+      booking7,
+      booking8
+    ];
   })
 
   it('should be a function', () => {
@@ -141,8 +187,8 @@ describe('Guest', () => {
     guest1.retrieveAllBookings(allBookings);
 
     expect(guest1.presentBookings).to.deep.equal([]);
-    expect(guest1.futureBookings).to.deep.equal([booking1]);
-    expect(guest1.pastBookings).to.deep.equal([booking2]);
+    expect(guest1.futureBookings).to.deep.equal([booking1, booking7, booking8]);
+    expect(guest1.pastBookings).to.deep.equal([booking2, booking5, booking6]);
   })
 
   it('should be able to organize its booking history for different user', () => {
@@ -151,5 +197,17 @@ describe('Guest', () => {
     expect(guest2.presentBookings).to.deep.equal([]);
     expect(guest2.futureBookings).to.deep.equal([]);
     expect(guest2.pastBookings).to.deep.equal([booking4]);
+  })
+
+  it('should be able to sort its past bookings by closest date to today', () => {
+    guest1.retrieveAllBookings(allBookings);
+    guest1.sortBookingsByDate("future");
+    expect(guest1.futureBookings).to.deep.equal([booking7, booking1, booking8])
+  })
+
+  it('should be able to sort its future bookings by closest date to today', () => {
+    guest1.retrieveAllBookings(allBookings);
+    guest1.sortBookingsByDate("past");
+    expect(guest1.pastBookings).to.deep.equal([booking6, booking2, booking5])
   })
 })

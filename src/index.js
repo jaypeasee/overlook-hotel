@@ -20,7 +20,9 @@ let userData;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 window.addEventListener("load", getApiData);
-loginForm.addEventListener("click", handleFormClick);
+loginForm.addEventListener("click", handleLoginClick);
+navSection.addEventListener("click", handleNavClick);
+mainSection.addEventListener("click", handleMainSectionClick)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -41,7 +43,7 @@ function defineApiData(bookings, users, rooms) {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function handleFormClick(event) {
+function handleLoginClick(event) {
   const usernameInput = document.querySelector('.login-username-input');
   const passwordInput = document.querySelector('.login-password-input');
   if (event.target.className === "login-button"
@@ -76,7 +78,79 @@ function createGuest(currentUser) {
     return user.id === currentUser.id;
   })
   currentGuest = new Guest(`customer${matchedGuest.id}`, matchedGuest.name);
+  runGuestMethods()
+  displayGuestHome();
+}
+
+function runGuestMethods() {
+  currentGuest.calculateTotalSpent(bookingData, currentHotel);
+  currentGuest.retrieveAllBookings(bookingData);
+  currentGuest.sortBookingsByDate("future");
+  currentGuest.sortBookingsByDate("past");
+}
+
+function displayGuestHome() {
   clearHome();
+  displayGuestNav();
+  displayHeading("Your Reservations");
+  handleBookingsDisplay()
+}
+
+function displayGuestNav() {
+  const navBlock =
+    `<div class="guest-nav">
+      <div class="nav-headings">
+        <h2 class="nav-text">Welcome ${currentGuest.name}!</h2>
+        <h3 class="nav-text">${currentGuest.date}</h3>
+      </div>
+      <div class="nav-details">
+        <article class="nav-booking-form">
+          <h3 class="nav-form-heading nav-text">Book A Room</h3>
+          <input aria-label="date-input" type="date" class="date-availability-input">
+          <button class="date-availability-button">CHECK AVAILABILITY!</button>
+        </article>
+        <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent}</h4>
+      </div>
+    </div>`
+  navSection.insertAdjacentHTML('afterbegin', navBlock);
+}
+
+function displayHeading(sectionHeading) {
+  const headingBlock =
+  `<h1 class="main-title">${sectionHeading}</h1>`;
+  mainSection.insertAdjacentHTML('afterbegin', headingBlock);
+}
+
+function handleBookingsDisplay() {
+  if (currentGuest.presentBookings.length > 0) {
+    displayBookings('Current Bookings', currentGuest.presentBookings);
+  }
+  if (currentGuest.futureBookings.length > 0) {
+    displayBookings('Future Bookings', currentGuest.futureBookings);
+  }
+  if (currentGuest.pastBookings.length > 0) {
+    displayBookings('Past Bookings', currentGuest.pastBookings);
+  }
+}
+
+function displayBookings(cardTitle, bookings) {
+  const bookingBlock =
+    `<article class="reservation-cards">
+      <h2>${cardTitle}</h2>
+      <ul class="room-history-list">
+      </ul>
+    </article>`
+  mainSection.insertAdjacentHTML('beforeend', bookingBlock);
+  displayBookingsList(bookings);
+}
+
+function displayBookingsList(bookings) {
+  const listBlock = mainSection.lastChild.children[1];
+  bookings.forEach(booking => {
+    const listItem =
+    `<li>Room ${booking.roomNumber} on ${booking.date}</li>`;
+    listBlock.insertAdjacentHTML('beforeend', listItem);
+  })
 }
 
 function createManager(currentUser) {
@@ -99,4 +173,125 @@ function displayLoginError(errorMessage) {
   const messageBlock =
   `<h4 class="error-message">${errorMessage}</h4>`;
   loginForm.insertAdjacentHTML('beforeend', messageBlock);
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function handleNavClick(event) {
+  if (event.target.className === "date-availability-button") {
+    handleAvailableRoomsDisplay(event)
+  }
+}
+
+function handleAvailableRoomsDisplay(event) {
+  const dateInput = event.target.previousElementSibling;
+  if (currentGuest.date <= dateInput.value) {
+    displayFilteredRoomsByDate(dateInput, event)
+  } else {
+    displayDateError(event);
+  }
+}
+
+function displayFilteredRoomsByDate(dateInput, event) {
+  removeDateError(event);
+  mainSection.innerHTML = "";
+  displayHeading(`Available Rooms For ${dateInput.value}`);
+  displayRoomTypeForm()
+  findOpenRooms(dateInput.value);
+}
+
+function removeDateError(event) {
+  if (event.target.nextElementSibling) {
+    event.target.nextElementSibling.remove();
+  }
+}
+
+function displayRoomTypeForm() {
+  const roomTypeForm =
+  `<article class="room-type-form">
+    <h2 class="filter-room-title">Filter These Rooms By Type</h2>
+    <div class="filter-form-inputs">
+      <select name="room-types" id="room-types" class="room-type-inputs">
+        <option value="all rooms">all rooms</option>
+        <option value="residential suite">residential suite</option>
+        <option value="suite">suite</option>
+        <option value="junior suite">junior suite</option>
+        <option value="single room">single room</option>
+      </select>
+      <button class="room-type-button">FILTER YOUR SEARCH</button>
+    </div>
+  </article>`;
+  mainSection.insertAdjacentHTML('beforeend', roomTypeForm)
+}
+
+function findOpenRooms(datePicked) {
+  currentHotel.date = datePicked.replace('-', '/').replace('-', '/')
+  const availableRooms = currentHotel.retrieveAvailableRooms(bookingData);
+  if (availableRooms.length > 0) {
+    displayAvailableRooms(availableRooms);
+  } else {
+    displayNoVacancyMessage()
+  }
+}
+
+function displayAvailableRooms(availableRooms) {
+  availableRooms.forEach(room => {
+    const roomBlock =
+    `<article class="room-cards">
+      <h2 class="room-card-title">Room ${room.number}</h2>
+      <ul class="room-list">
+        <li class="room-list-item"><h3>${room.roomType}</h3></li>
+        <li class="room-list-item">${room.numBeds} ${room.bedSize} size beds</li>
+        <li class="room-list-item">Cost Per Night: $${room.costPerNight}</li>
+        <li class="room-list-item">Bidet?: ${room.bidet}</li>
+      </ul>
+      <button class="book-room-button">BOOK THIS ROOM</button>
+    </article>`
+    mainSection.insertAdjacentHTML('beforeend', roomBlock)
+  })
+}
+
+function displayNoVacancyMessage() {
+  const apologyBlock =
+  `<h3 class="no-vacancy-message">There are vacancies for ${currentHotel.date}. Please choose a different date.`;
+  mainSection.insertAdjacentHTML('beforeend', apologyBlock);
+}
+
+function displayDateError(event) {
+  removeDateError(event);
+  const dateButton = event.target;
+  const errorBlock =
+  `<p class="date-error">Please enter a valid date to book<p>`
+  dateButton.insertAdjacentHTML('afterend', errorBlock);
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function handleMainSectionClick(event) {
+  if (event.target.className === 'room-type-button') {
+    handleRoomTypeFilter(event);
+  } else if (event.target.className === 'book-room-button') {
+    handleRoomBooking();
+  }
+}
+
+function handleRoomTypeFilter(event) {
+  const selectedType = event.target.previousElementSibling
+  const filteredRooms = currentHotel.filterRoomsByType(bookingData, selectedType.value);
+  mainSection.innerHTML = "";
+  if (filteredRooms.length > 0) {
+    displayRoomTypeFilter(selectedType.value, filteredRooms);
+  } else {
+    displayNoVacancyMessage();
+  }
+}
+
+function displayRoomTypeFilter(selectedType, filteredRooms) {
+  displayHeading(`Available ${selectedType}s For ${currentHotel.date}`);
+  displayRoomTypeForm()
+  displayAvailableRooms(filteredRooms);
+}
+
+function handleRoomBooking() {
+  console.log("post request");
 }

@@ -12,12 +12,14 @@ body {
 
 nav {
   background-color: #e7dec8;
-  @include flex-column;
-  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  height: 33vh;
 }
 
 main {
-  @include flex-column;
+  @include flex-center-column;
+  color: #cbaf87;
 }
 
 h1 {
@@ -25,31 +27,193 @@ h1 {
   color: $dark-blue;
 }
 
-.login-form {
-  @include flex-column;
-  background-color: $dark-tan;
+li {
+  padding: 2% 15%;
+  display: flex;
+  justify-content: center;
+}
+
+.login-title {
+  align-self: center;
+}
+
+.guest-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-headings {
+  margin-top: .5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-booking-form {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  width: 33%;
+}
+
+.nav-text {
+  margin: .5% 5% .5% 5%;
   color: $dark-blue;
-  margin: 7%;
-  width: 50%;
+}
+
+.nav-form-heading {
+  margin-left: 0;
+}
+
+.date-availability-input {
+  @include nav-inputs;
+  padding: 0 2% 0 2%;
+  margin: 1.5% 0;
+}
+
+.date-availability-button {
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  padding: 0 2% 0 2%;
+  background-color: $dark-blue;
+  color: #FFF;
+}
+
+.main-title {
+  margin: 7% 0 0 0;
+}
+
+.login-form {
   height: 50vh;
-  border-radius: 10px;
-  box-shadow: 3px 4px #00000070;
+  @include flex-center-column;
+  @include cards;
   ::-webkit-input-placeholder {
     text-align: center;
   }
 }
 
+.reservation-cards {
+  @include cards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-history-list {
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+}
+
+.room-cards {
+  @include cards;
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+}
+
+.room-card-title {
+  align-self: center;
+  margin-bottom: 0;
+}
+
+.room-list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  list-style: circle;
+}
+
+.room-list-item {
+  align-self: flex-start;
+  padding: 1% 5%;
+}
+
+.book-room-button {
+  margin: 0 8% 8% 8%;
+  align-self: center;
+  @include button-colors;
+  width: 50%;
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+}
+
+.room-type-form {
+  width: 70%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.filter-room-title {
+  align-self: center;
+  margin: 10% 0 0 0;
+  color: $dark-blue;
+}
+
+.filter-form-inputs {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.room-type-inputs {
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  width: 33%;
+  align-self: center;
+  margin: 5% 3%
+}
+
+.room-type-button {
+  @include button-colors;
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  margin: 5% 3%;
+  width: 33%;
+  align-self: center;
+}
+
 .login-input {
-  @include inputs;
+  @include login-inputs;
 }
 
 .login-button {
-  @include inputs;
-  background-color: $dark-blue;
-  color: #FFF;
+  @include login-inputs;
+  @include button-colors;
 }
 
 .error-message {
+  color: $error-red;
+  align-self: center;
+}
+
+.date-error {
+  color: $error-red;
+  margin: 1%;
+}
+
+.no-vacancy-message {
   color: $error-red;
   align-self: center;
 }

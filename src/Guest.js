@@ -2,7 +2,7 @@ import User from './User'
 
 class Guest extends User {
   constructor(username, name) {
-    super(username)
+    super(username);
     this.name = name;
     this.presentBookings = [];
     this.futureBookings = [];
@@ -17,7 +17,7 @@ class Guest extends User {
   }
 
   calculateTotalSpent(allBookings, hotel) {
-    const guestHistory = this.findBookingRecords(allBookings)
+    const guestHistory = this.findBookingRecords(allBookings);
     hotel.rooms.forEach(room => {
       guestHistory.forEach(booking => {
         if (booking.roomNumber === room.number) {
@@ -39,6 +39,18 @@ class Guest extends User {
         this.pastBookings.push(booking);
       }
     })
+  }
+
+  sortBookingsByDate(timePeriod) {
+    if (this.futureBookings.length > 0 && timePeriod === "future") {
+      const sortedFuture = this.futureBookings.sort((futureA, futureB) => {
+        return futureA.date > futureB.date ? 1 : -1
+      })
+    } else if (this.pastBookings.length > 0 && timePeriod === "past") {
+      const sortedPast = this.pastBookings.sort((pastA, pastB) => {
+        return pastA.date < pastB.date ? 1 : -1;
+      })
+    }
   }
 }
 
