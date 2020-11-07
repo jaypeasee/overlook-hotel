@@ -58,12 +58,11 @@ function handleLoginClick(event) {
 function createUser(enteredUsername, enteredPassword) {
   currentUser = new User(enteredUsername);
   const userType = currentUser.validateUser(enteredPassword);
+  clearLoginError();
   if (userType === "guest") {
     createGuest(currentUser);
-    clearError();
   } else if (userType === "manager") {
     createManager(currentUser);
-    clearError();
   } else {
     displayLoginError(userType);
   }
@@ -110,7 +109,7 @@ function displayGuestNav() {
           <input aria-label="date-input" type="date" class="date-availability-input">
           <button class="date-availability-button">CHECK AVAILABILITY!</button>
         </article>
-        <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent}</h4>
+        <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent.toFixed(2)}</h4>
       </div>
     </div>`
   navSection.insertAdjacentHTML('afterbegin', navBlock);
@@ -163,7 +162,7 @@ function displayBookingsList(bookings, listBlock) {
 }
 
 function displayRemovableGuestBookings(bookings, listBlock) {
-  booking.forEach(booking => {
+  bookings.forEach(booking => {
     const listItem =
     `<li>Room ${booking.roomNumber} on ${booking.date}
      <button class="cancel-room-button">CANCEL</button>
@@ -205,7 +204,7 @@ function displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms) {
         <h2 class="manager-nav-details">Today's Date: ${currentManager.date}</h2>
         <h3 class="manager-nav-details">Available Rooms: ${availableRooms.length}</h3>
         <h3 class="manager-nav-details">Occupancy: ${hotelOccupancy}</h3>
-        <h3 class="manager-nav-details">Total Revenue Today: $${todaysRevenue}</h3>
+        <h3 class="manager-nav-details">Total Revenue Today: $${todaysRevenue.toFixed(2)}</h3>
       </div>
     </div>
     <div class="manager-nav-forms">
@@ -225,7 +224,7 @@ function displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms) {
 }
 
 
-function clearError() {
+function clearLoginError() {
   if (loginForm.children[4]) {
     loginForm.children[4].remove();
   }
@@ -252,19 +251,19 @@ function handleAvailableRoomsDisplay(event, userID) {
   if (currentUser.date <= dateInput.value) {
     displayFilteredRoomsByDate(dateInput, event, userID)
   } else {
-    displayDateError(event);
+    displayNavFormError(event, "date");
   }
 }
 
 function displayFilteredRoomsByDate(dateInput, event, userID) {
-  removeDateError(event);
+  removeNavFormError(event);
   mainSection.innerHTML = "";
   displayHeading(`Available Rooms For ${dateInput.value}`);
   displayRoomTypeForm(userID)
   findOpenRooms(dateInput.value, userID);
 }
 
-function removeDateError(event) {
+function removeNavFormError(event) {
   if (event.target.nextElementSibling) {
     event.target.nextElementSibling.remove();
   }
@@ -349,11 +348,11 @@ function displayNoVacancyMessage() {
   mainSection.insertAdjacentHTML('beforeend', apologyBlock);
 }
 
-function displayDateError(event) {
-  removeDateError(event);
+function displayNavFormError(event, errorType) {
+  removeNavFormError(event);
   const dateButton = event.target;
   const errorBlock =
-  `<p class="date-error">Please enter a valid date to book<p>`
+  `<p class="nav-error">Please enter a valid ${errorType}<p>`
   dateButton.insertAdjacentHTML('afterend', errorBlock);
 }
 
@@ -361,18 +360,15 @@ function findGuestProfile(event) {
   const nameEntered = event.target.previousElementSibling
   const guestProfile = currentManager.searchForGuest(nameEntered.value, userData)
   if (guestProfile === "error") {
-    displayGuestSearchError(nameEntered.value)
+    displayNavFormError(event, "guest name")
   } else {
     displayGuestProfile(guestProfile);
   }
   nameEntered.value = "";
 }
 
-function displayGuestSearchError(nameEntered) {
-
-}
-
 function displayGuestProfile(guestProfile) {
+  removeNavFormError(event);
   mainSection.innerHTML = "";
   guestProfile.retrieveAllBookings(bookingData);
   guestProfile.sortBookingsByDate('future');
@@ -384,13 +380,16 @@ function displayGuestProfile(guestProfile) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function handleMainSectionClick(event) {
+  const nameEntered = event.target.previousElementSibling;
   if (event.target.className === 'room-type-button') {
     handleRoomTypeFilter(event);
   } else if (event.target.className === 'book-room-button') {
-    handleRoomBooking();
+    handleRoomBooking(event, nameEntered, currentGuest);
   } else if (event.target.className === 'manager-book-room-button') {
-    //invoke way to post room booking with the date entered and name entered.
-    //could maybe eventually reuse
+    const guestProfile = currentManager.searchForGuest(nameEntered.value, userData);
+    handleRoomBooking(event, nameEntered, guestProfile);
+  } else if (event.target.className === "cancel-room-button") {
+    handleBookingCancellation(event);
   }
 }
 
@@ -411,6 +410,36 @@ function displayRoomTypeFilter(selectedType, filteredRooms) {
   displayAvailableRoomsForGuest(filteredRooms);
 }
 
-function handleRoomBooking() {
-  console.log("post request");
+function handleRoomBooking(event, nameEntered, guestProfile) {
+  const roomName = event.target.parentNode.children[0].innerText;
+  if (guestProfile === "error") {
+    displayNavFormError(event, "guest name");
+  } else {
+    const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
+    const newBooking = apiData.postNewBooking(bookingFormat);
+    getApiData();
+    displaySuccessfulBooking(event, roomName, currentHotel.date);
+  }
+  nameEntered.value = "";
+}
+
+function createBookingObject(roomNumber, guestID, datePicked) {
+  return {
+    userID: guestID,
+    date: datePicked,
+    roomNumber: parseInt(roomNumber)
+  };
+}
+
+function displaySuccessfulBooking(event, roomName, datePicked) {
+  const submitButton = event.target;
+  const bookingBlock =
+  `<p class="booking-success-message">${roomName} is now booked for ${datePicked}</p>`;
+  submitButton.insertAdjacentHTML('afterend', bookingBlock);
+  submitButton.disabled = true;
+  setTimeout(() => { submitButton.parentNode.remove() }, 5000);
+}
+
+function handleBookingCancellation(event) {
+
 }
