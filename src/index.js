@@ -415,12 +415,16 @@ function handleRoomBooking(event, nameEntered, guestProfile) {
   if (guestProfile === "error") {
     displayNavFormError(event, "guest name");
   } else {
-    createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
+    const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
+    const newBooking = apiData.postNewBooking(bookingFormat);
+    // getApiData();
   }
 }
 
 function createBookingObject(roomNumber, guestID, datePicked) {
-  const formattedBooking = { userID: guestID, date: datePicked, roomNumber: parseInt(roomNumber) };
-  console.log(formattedBooking)
-  apiData.postNewBooking(formattedBooking)
+  return {
+    userID: guestID,
+    date: datePicked,
+    roomNumber: parseInt(roomNumber)
+  };
 }
