@@ -58,12 +58,11 @@ function handleLoginClick(event) {
 function createUser(enteredUsername, enteredPassword) {
   currentUser = new User(enteredUsername);
   const userType = currentUser.validateUser(enteredPassword);
+  clearLoginError();
   if (userType === "guest") {
     createGuest(currentUser);
-    clearError();
   } else if (userType === "manager") {
     createManager(currentUser);
-    clearError();
   } else {
     displayLoginError(userType);
   }
@@ -110,7 +109,7 @@ function displayGuestNav() {
           <input aria-label="date-input" type="date" class="date-availability-input">
           <button class="date-availability-button">CHECK AVAILABILITY!</button>
         </article>
-        <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent}</h4>
+        <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent.toFixed(2)}</h4>
       </div>
     </div>`
   navSection.insertAdjacentHTML('afterbegin', navBlock);
@@ -163,7 +162,7 @@ function displayBookingsList(bookings, listBlock) {
 }
 
 function displayRemovableGuestBookings(bookings, listBlock) {
-  booking.forEach(booking => {
+  bookings.forEach(booking => {
     const listItem =
     `<li>Room ${booking.roomNumber} on ${booking.date}
      <button class="cancel-room-button">CANCEL</button>
@@ -205,7 +204,7 @@ function displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms) {
         <h2 class="manager-nav-details">Today's Date: ${currentManager.date}</h2>
         <h3 class="manager-nav-details">Available Rooms: ${availableRooms.length}</h3>
         <h3 class="manager-nav-details">Occupancy: ${hotelOccupancy}</h3>
-        <h3 class="manager-nav-details">Total Revenue Today: $${todaysRevenue}</h3>
+        <h3 class="manager-nav-details">Total Revenue Today: $${todaysRevenue.toFixed(2)}</h3>
       </div>
     </div>
     <div class="manager-nav-forms">
@@ -225,7 +224,7 @@ function displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms) {
 }
 
 
-function clearError() {
+function clearLoginError() {
   if (loginForm.children[4]) {
     loginForm.children[4].remove();
   }
@@ -389,6 +388,8 @@ function handleMainSectionClick(event) {
   } else if (event.target.className === 'manager-book-room-button') {
     const guestProfile = currentManager.searchForGuest(nameEntered.value, userData);
     handleRoomBooking(event, nameEntered, guestProfile);
+  } else if (event.target.className === "cancel-room-button") {
+    handleBookingCancellation(event);
   }
 }
 
@@ -437,4 +438,8 @@ function displaySuccessfulBooking(event, roomName, datePicked) {
   submitButton.insertAdjacentHTML('afterend', bookingBlock);
   submitButton.disabled = true;
   setTimeout(() => { submitButton.parentNode.remove() }, 5000);
+}
+
+function handleBookingCancellation(event) {
+
 }
