@@ -23,9 +23,9 @@ describe('Manager', () => {
 
   beforeEach(() => {
     manager = new Manager("manager");
-    guest1 = new Guest("customer1", "Remus Lupin");
-    guest2 = new Guest("customer2", "Ron Weasley");
-    guest3 = new Guest("customer3", "Neville Longbottom");
+    guest1 = { username: "customer1", name: "Remus Lupin" };
+    guest2 = { username: "customer2", name: "Ron Weasley" };
+    guest3 = { username: "customer3", name: "Neville Longbottom"};
     allGuests = [guest1, guest2, guest3]
     hotelRoom1 = {
       number: 1,
@@ -107,22 +107,36 @@ describe('Manager', () => {
     expect(manager).to.be.an.instanceof(Manager);
   })
 
-  it('should be able to search for a customer\'s history', () => {
-    guest1.calculateTotalSpent(allBookings, hotel);
-    guest1.retrieveAllBookings(allBookings);
-
-    expect(manager.userSearch("Remus Lupin", allGuests)).to.equal(guest1);
+  it('should be able to search for a customer\'s history and return a new Customer', () => {
+    expect(manager.searchForGuest("Remus Lupin", allGuests)).to.deep.equal({
+      username: 'customerundefined',
+      password: 'overlook2020',
+      id: undefined,
+      date: '2020-11-07',
+      name: 'Remus Lupin',
+      presentBookings: [],
+      futureBookings: [],
+      pastBookings: [],
+      totalAmountSpent: 0
+    });
   })
 
-  it('should be able to search for a different existing customer', () => {
-    guest2.calculateTotalSpent(allBookings, hotel);
-    guest2.retrieveAllBookings(allBookings);
-
-    expect(manager.userSearch("Ron Weasley", allGuests)).to.equal(guest2);
+  it('should be able to search for a different existing customer and return a new Customer', () => {
+    expect(manager.searchForGuest("Ron Weasley", allGuests)).to.deep.equal({
+      username: 'customerundefined',
+      password: 'overlook2020',
+      id: undefined,
+      date: '2020-11-07',
+      name: 'Ron Weasley',
+      presentBookings: [],
+      futureBookings: [],
+      pastBookings: [],
+      totalAmountSpent: 0
+    });
   })
 
-  it('should send an alert message if a user is not found on name search', () => {
-    expect(manager.userSearch("Severus Snape", allGuests)).to.equal("No customers have been found under the name of 'Severus Snape'.");
+  it('should return an error if no guest is found from the list', () => {
+    expect(manager.searchForGuest("Voldemort", allGuests)).to.equal("error");
   })
 
   it('should calculate the occupancy for that day', () => {
