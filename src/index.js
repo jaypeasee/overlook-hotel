@@ -161,7 +161,7 @@ function displayBookingsList(bookings, listBlock) {
     listBlock.insertAdjacentHTML('beforeend', listItem);
   })
 }
-/////////////////////////////////////////////////
+
 function displayRemovableGuestBookings(bookings, listBlock) {
   booking.forEach(booking => {
     const listItem =

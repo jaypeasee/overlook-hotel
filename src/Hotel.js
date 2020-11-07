@@ -5,11 +5,11 @@ class Hotel {
   }
 
   retrieveAvailableRooms(allBookings) {
-    const takenRoomNumbers = allBookings.reduce((acc, booking) => {
+    const takenRoomNumbers = allBookings.reduce((roomNumbers, booking) => {
       if (booking.date === this.date) {
-        acc.push(booking.roomNumber);
+        roomNumbers.push(booking.roomNumber);
       }
-      return acc;
+      return roomNumbers;
     }, [])
     const availableRooms = this.rooms.filter(room => {
       return !takenRoomNumbers.includes(room.number);

@@ -13,6 +13,7 @@ class Manager extends User {
     if (searchedGuest) {
       const guestProfile = new Guest(`customer${searchedGuest.id}`, searchedGuest.name);
       guestProfile.id = searchedGuest.id;
+      console.log(guestProfile);
       return guestProfile;
     }
     return "error";
@@ -32,13 +33,13 @@ class Manager extends User {
 
   calculateRevenueToday(allBookings, hotel) {
     const bookedRooms = this.filterTodaysBookings(allBookings);
-    const totalRevenue = hotel.rooms.reduce((acc, room) => {
+    return hotel.rooms.reduce((totalRevenue, room) => {
       bookedRooms.forEach(booking => {
         if (room.number === booking.roomNumber) {
-          acc += room.costPerNight;
+          totalRevenue += room.costPerNight;
         }
       })
-      return acc
+      return totalRevenue;
     }, 0)
     return totalRevenue;
   }
