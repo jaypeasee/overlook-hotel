@@ -13,7 +13,6 @@ class Manager extends User {
     if (searchedGuest) {
       const guestProfile = new Guest(`customer${searchedGuest.id}`, searchedGuest.name);
       guestProfile.id = searchedGuest.id;
-      console.log(guestProfile);
       return guestProfile;
     }
     return "error";

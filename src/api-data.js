@@ -18,5 +18,9 @@ export let apiData = {
       .then(response => response.json())
       .then(data => data.rooms)
       .catch(error => console.log(error.message));
+  },
+
+  postNewBooking() {
+
   }
 }

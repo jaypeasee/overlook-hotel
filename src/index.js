@@ -381,14 +381,14 @@ function displayGuestProfile(guestProfile) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function handleMainSectionClick(event) {
+  const nameEntered = event.target.previousElementSibling;
   if (event.target.className === 'room-type-button') {
     handleRoomTypeFilter(event);
   } else if (event.target.className === 'book-room-button') {
-    handleRoomBooking();
+    handleRoomBooking(event, nameEntered, currentGuest);
   } else if (event.target.className === 'manager-book-room-button') {
-    handleManagerBooking(event);
-    //invoke way to post room booking with the date entered and name entered.
-    //could maybe eventually reuse
+    const guestProfile = currentManager.searchForGuest(nameEntered.value, userData);
+    handleRoomBooking(event, nameEntered, guestProfile);
   }
 }
 
@@ -409,14 +409,18 @@ function displayRoomTypeFilter(selectedType, filteredRooms) {
   displayAvailableRoomsForGuest(filteredRooms);
 }
 
-function handleRoomBooking() {
-  console.log("post request");
+function handleRoomBooking(event, nameEntered, guestProfile) {
+  const roomName = event.target.parentNode.children[0].innerText;
+  nameEntered.value = "";
+  if (guestProfile === "error") {
+    displayNavFormError(event, "guest name");
+  } else {
+    createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
+  }
 }
 
-function handleManagerBooking(event) {
-  const nameEntered = event.target.previousElementSibling;
-  const guestProfile = currentManager.searchForGuest(nameEntered.value, userData)
-  if (guestProfile === "error") {
-
-  }
+function createBookingObject(roomNumber, guestID, datePicked) {
+  const formattedBooking = { userID: guestID, date: datePicked, roomNumber: parseInt(roomNumber) };
+  console.log(formattedBooking)
+  apiData.postNewBooking(formattedBooking)
 }
