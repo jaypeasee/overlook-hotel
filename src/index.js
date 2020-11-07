@@ -259,7 +259,6 @@ function handleAvailableRoomsDisplay(event, userID) {
 function displayFilteredRoomsByDate(dateInput, event, userID) {
   removeDateError(event);
   mainSection.innerHTML = "";
-  //show filter again
   displayHeading(`Available Rooms For ${dateInput.value}`);
   displayRoomTypeForm(userID)
   findOpenRooms(dateInput.value, userID);
@@ -272,7 +271,6 @@ function removeDateError(event) {
 }
 
 function displayRoomTypeForm(userID) {
-  //not reaching this second time.
   const roomTypeForm =
   `<article class="room-type-form">
     <h2 class="filter-room-title">Filter These Rooms By Type</h2>
@@ -375,6 +373,7 @@ function displayGuestSearchError(nameEntered) {
 }
 
 function displayGuestProfile(guestProfile) {
+  mainSection.innerHTML = "";
   guestProfile.retrieveAllBookings(bookingData);
   guestProfile.sortBookingsByDate('future');
   guestProfile.sortBookingsByDate('past');
