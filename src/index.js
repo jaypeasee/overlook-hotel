@@ -252,19 +252,19 @@ function handleAvailableRoomsDisplay(event, userID) {
   if (currentUser.date <= dateInput.value) {
     displayFilteredRoomsByDate(dateInput, event, userID)
   } else {
-    displayDateError(event);
+    displayNavFormError(event, "date");
   }
 }
 
 function displayFilteredRoomsByDate(dateInput, event, userID) {
-  removeDateError(event);
+  removeNavFormError(event);
   mainSection.innerHTML = "";
   displayHeading(`Available Rooms For ${dateInput.value}`);
   displayRoomTypeForm(userID)
   findOpenRooms(dateInput.value, userID);
 }
 
-function removeDateError(event) {
+function removeNavFormError(event) {
   if (event.target.nextElementSibling) {
     event.target.nextElementSibling.remove();
   }
@@ -349,11 +349,11 @@ function displayNoVacancyMessage() {
   mainSection.insertAdjacentHTML('beforeend', apologyBlock);
 }
 
-function displayDateError(event) {
-  removeDateError(event);
+function displayNavFormError(event, errorType) {
+  removeNavFormError(event);
   const dateButton = event.target;
   const errorBlock =
-  `<p class="date-error">Please enter a valid date to book<p>`
+  `<p class="nav-error">Please enter a valid ${errorType}<p>`
   dateButton.insertAdjacentHTML('afterend', errorBlock);
 }
 
@@ -361,18 +361,15 @@ function findGuestProfile(event) {
   const nameEntered = event.target.previousElementSibling
   const guestProfile = currentManager.searchForGuest(nameEntered.value, userData)
   if (guestProfile === "error") {
-    displayGuestSearchError(nameEntered.value)
+    displayNavFormError(event, "guest name")
   } else {
     displayGuestProfile(guestProfile);
   }
   nameEntered.value = "";
 }
 
-function displayGuestSearchError(nameEntered) {
-
-}
-
 function displayGuestProfile(guestProfile) {
+  removeNavFormError(event);
   mainSection.innerHTML = "";
   guestProfile.retrieveAllBookings(bookingData);
   guestProfile.sortBookingsByDate('future');
@@ -389,6 +386,7 @@ function handleMainSectionClick(event) {
   } else if (event.target.className === 'book-room-button') {
     handleRoomBooking();
   } else if (event.target.className === 'manager-book-room-button') {
+    handleManagerBooking(event);
     //invoke way to post room booking with the date entered and name entered.
     //could maybe eventually reuse
   }
@@ -413,4 +411,12 @@ function displayRoomTypeFilter(selectedType, filteredRooms) {
 
 function handleRoomBooking() {
   console.log("post request");
+}
+
+function handleManagerBooking(event) {
+  const nameEntered = event.target.previousElementSibling;
+  const guestProfile = currentManager.searchForGuest(nameEntered.value, userData)
+  if (guestProfile === "error") {
+
+  }
 }
