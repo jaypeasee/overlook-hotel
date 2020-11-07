@@ -94,7 +94,7 @@ function displayGuestHome() {
   clearHome();
   displayGuestNav();
   displayHeading("Your Reservations");
-  handleBookingsDisplay()
+  handleBookingsDisplay(currentGuest)
 }
 
 function displayGuestNav() {
@@ -122,15 +122,15 @@ function displayHeading(sectionHeading) {
   mainSection.insertAdjacentHTML('afterbegin', headingBlock);
 }
 
-function handleBookingsDisplay() {
-  if (currentGuest.presentBookings.length > 0) {
-    displayBookings('Current Bookings', currentGuest.presentBookings);
+function handleBookingsDisplay(guestProfile) {
+  if (guestProfile.presentBookings.length > 0) {
+    displayBookings('Current Bookings', guestProfile.presentBookings);
   }
-  if (currentGuest.futureBookings.length > 0) {
-    displayBookings('Future Bookings', currentGuest.futureBookings);
+  if (guestProfile.futureBookings.length > 0) {
+    displayBookings('Future Bookings', guestProfile.futureBookings);
   }
-  if (currentGuest.pastBookings.length > 0) {
-    displayBookings('Past Bookings', currentGuest.pastBookings);
+  if (guestProfile.pastBookings.length > 0) {
+    displayBookings('Past Bookings', guestProfile.pastBookings);
   }
 }
 
@@ -225,7 +225,7 @@ function handleNavClick(event) {
   if (event.target.classList.contains("date-availability-button")) {
     handleAvailableRoomsDisplay(event, currentUser.id)
   } else if (event.target.classList.contains("search-user-button")) {
-
+    findGuestProfile(event)
   }
 }
 
@@ -337,6 +337,28 @@ function displayDateError(event) {
   const errorBlock =
   `<p class="date-error">Please enter a valid date to book<p>`
   dateButton.insertAdjacentHTML('afterend', errorBlock);
+}
+
+function findGuestProfile(event) {
+  const nameEntered = event.target.previousElementSibling
+  const guestProfile = currentManager.searchForGuest(nameEntered.value, userData)
+  if (guestProfile === "error") {
+    displayGuestSearchError(nameEntered.value)
+  } else {
+    displayGuestProfile(guestProfile);
+  }
+}
+
+function displayGuestSearchError(nameEntered) {
+
+}
+
+function displayGuestProfile(guestProfile) {
+  guestProfile.retrieveAllBookings(bookingData);
+  guestProfile.sortBookingsByDate('future');
+  guestProfile.sortBookingsByDate('past');
+  displayHeading(`All Bookings for ${guestProfile.name}`);
+  handleBookingsDisplay(guestProfile);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

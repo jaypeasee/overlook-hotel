@@ -6,14 +6,16 @@ class Manager extends User {
     super(username)
   }
 
-  userSearch(guestName, allGuests) {
+  searchForGuest(guestName, allGuests) {
     const searchedGuest = allGuests.find(guest => {
       return guestName === guest.name;
     })
     if (searchedGuest) {
-      return searchedGuest;
+      const guestProfile = new Guest(`customer${searchedGuest.id}`, searchedGuest.name);
+      guestProfile.id = searchedGuest.id;
+      return guestProfile;
     }
-    return `No customers have been found under the name of '${guestName}'.`;
+    return "error";
   }
 
   filterTodaysBookings(allBookings) {
