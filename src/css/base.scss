@@ -76,16 +76,12 @@ li {
 
 .date-availability-input {
   @include nav-inputs;
-  padding: 0 2% 0 2%;
+  @include button-input-borders;
   margin: 1.5% 0;
 }
 
 .date-availability-button {
-  height: 30px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
-  padding: 0 2% 0 2%;
+  @include button-input-borders;
   @include button-colors;
 }
 
@@ -144,10 +140,7 @@ li {
   align-self: center;
   @include button-colors;
   width: 50%;
-  height: 30px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
+  @include button-input-borders;
 }
 
 .room-type-form {
@@ -173,10 +166,7 @@ li {
 }
 
 .room-type-inputs {
-  height: 30px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
+  @include button-input-borders;
   width: 33%;
   align-self: center;
   margin: 5% 3%
@@ -184,10 +174,7 @@ li {
 
 .room-type-button {
   @include button-colors;
-  height: 30px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
+  @include button-input-borders;
   margin: 5% 3%;
   width: 33%;
   align-self: center;
@@ -195,11 +182,13 @@ li {
 
 .login-input {
   @include login-inputs;
+  @include button-input-borders;
 }
 
 .login-button {
   @include login-inputs;
   @include button-colors;
+  @include button-input-borders;
 }
 
 .manager-nav {
@@ -250,18 +239,12 @@ li {
 
 .manager-nav-button {
   @include button-colors;
-  height: 32px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
+  @include button-input-borders;
   padding: 0 2% 0 2%;
 }
 
 .manager-nav-input {
-  height: 30px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
+  @include button-input-borders;
   align-self: center;
   margin-right: 2%;
 }
@@ -273,6 +256,7 @@ li {
 
 .guest-name-input {
   @include nav-inputs;
+  @include button-input-borders;
   width: 50%;
   align-self: center;
   margin: 0;
@@ -280,11 +264,7 @@ li {
 
 .manager-book-room-button {
   @include button-colors;
-  height: 30px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
-  padding: 0 2% 0 2%;
+  @include button-input-borders;
   width: 50%;
   align-self: center;
   margin: 3% 0 5% 0
@@ -294,10 +274,7 @@ li {
   margin-left: 10%;
   background-color: $error-red;
   color: #FFF;
-  height: 30px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
+  @include button-input-borders;
 }
 
 .error-message {

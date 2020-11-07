@@ -22,10 +22,6 @@ $error-red: #ff3333;
 }
 
 @mixin nav-inputs {
-  height: 30px;
-  border-radius: 5px;
-  border: black solid .25px;
-  outline: none;
   margin: 1.5% 0;
 }
 
@@ -40,4 +36,12 @@ $error-red: #ff3333;
 @mixin button-colors {
   background-color: $dark-blue;
   color: #FFF;
+}
+
+@mixin button-input-borders {
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+  padding: 0 2% 0 2%;
+  height: 30px;
 }

@@ -300,7 +300,7 @@ function findOpenRooms(datePicked, userID) {
   }
 }
 
-function determineUserView(userID) {
+function determineUserView(availableRooms, userID) {
   if (userID > 0) {
     displayAvailableRoomsForGuest(availableRooms);
   } else {
@@ -387,6 +387,9 @@ function handleMainSectionClick(event) {
     handleRoomTypeFilter(event);
   } else if (event.target.className === 'book-room-button') {
     handleRoomBooking();
+  } else if (event.target.className === 'manager-book-room-button') {
+    //invoke way to post room booking with the date entered and name entered.
+    //could maybe eventually reuse
   }
 }
 
