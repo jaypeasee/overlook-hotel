@@ -124,17 +124,17 @@ function displayHeading(sectionHeading) {
 
 function handleBookingsDisplay(guestProfile) {
   if (guestProfile.presentBookings.length > 0) {
-    displayBookings('Current Bookings', guestProfile.presentBookings);
+    displayBookings('Current Bookings', guestProfile.presentBookings, guestProfile);
   }
   if (guestProfile.futureBookings.length > 0) {
-    displayBookings('Future Bookings', guestProfile.futureBookings);
+    displayBookings('Future Bookings', guestProfile.futureBookings, guestProfile);
   }
   if (guestProfile.pastBookings.length > 0) {
-    displayBookings('Past Bookings', guestProfile.pastBookings);
+    displayBookings('Past Bookings', guestProfile.pastBookings, guestProfile);
   }
 }
 
-function displayBookings(cardTitle, bookings) {
+function displayBookings(cardTitle, bookings, guestProfile) {
   const bookingBlock =
     `<article class="reservation-cards">
       <h2>${cardTitle}</h2>
@@ -142,14 +142,32 @@ function displayBookings(cardTitle, bookings) {
       </ul>
     </article>`
   mainSection.insertAdjacentHTML('beforeend', bookingBlock);
-  displayBookingsList(bookings);
+  handleBookingsList(bookings, guestProfile)
 }
 
-function displayBookingsList(bookings) {
+function handleBookingsList(bookings, guestProfile) {
   const listBlock = mainSection.lastChild.children[1];
+  if (bookings === guestProfile.futureBookings && guestProfile !== currentGuest) {
+    displayRemovableGuestBookings(bookings, listBlock)
+  } else {
+    displayBookingsList(bookings, listBlock)
+  }
+}
+
+function displayBookingsList(bookings, listBlock) {
   bookings.forEach(booking => {
     const listItem =
     `<li>Room ${booking.roomNumber} on ${booking.date}</li>`;
+    listBlock.insertAdjacentHTML('beforeend', listItem);
+  })
+}
+/////////////////////////////////////////////////
+function displayRemovableGuestBookings(bookings, listBlock) {
+  booking.forEach(booking => {
+    const listItem =
+    `<li>Room ${booking.roomNumber} on ${booking.date}
+     <button class="cancel-room-button">CANCEL</button>
+     </li>`;
     listBlock.insertAdjacentHTML('beforeend', listItem);
   })
 }
@@ -347,6 +365,7 @@ function findGuestProfile(event) {
   } else {
     displayGuestProfile(guestProfile);
   }
+  nameEntered.value = "";
 }
 
 function displayGuestSearchError(nameEntered) {

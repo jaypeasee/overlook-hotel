@@ -290,6 +290,16 @@ li {
   margin: 3% 0 5% 0
 }
 
+.cancel-room-button {
+  margin-left: 10%;
+  background-color: $error-red;
+  color: #FFF;
+  height: 30px;
+  border-radius: 5px;
+  border: black solid .25px;
+  outline: none;
+}
+
 .error-message {
   color: $error-red;
   align-self: center;
