@@ -164,7 +164,7 @@ function displayBookingsList(bookings, listBlock) {
 function displayRemovableGuestBookings(bookings, listBlock) {
   bookings.forEach(booking => {
     const listItem =
-    `<li>Room ${booking.roomNumber} on ${booking.date}
+    `<li data-id='${booking.id}'>Room ${booking.roomNumber} on ${booking.date}
      <button class="cancel-room-button">CANCEL</button>
      </li>`;
     listBlock.insertAdjacentHTML('beforeend', listItem);
@@ -441,5 +441,7 @@ function displaySuccessfulBooking(event, roomName, datePicked) {
 }
 
 function handleBookingCancellation(event) {
-
+  const bookingToCancel = event.target.parentNode;
+  const cancellationObject = { id: bookingToCancel.dataset.id }
+  const completedCancellation = apiData.deleteBooking(cancellationObject);
 }
