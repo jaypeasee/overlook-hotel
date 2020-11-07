@@ -11,9 +11,8 @@ body {
 }
 
 nav {
+  @include flex-column;
   background-color: #e7dec8;
-  display: flex;
-  flex-direction: column;
 }
 
 main {
@@ -22,14 +21,13 @@ main {
 }
 
 h1 {
-  font-size: 2em;
   color: $dark-blue;
+  font-size: 2em;
 }
 
 li {
+  @include flex-row-center;
   padding: 2% 15%;
-  display: flex;
-  justify-content: center;
 }
 
 .login-title {
@@ -37,37 +35,31 @@ li {
 }
 
 .guest-nav {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
 }
 
 .nav-headings {
+  @include flex-row-between;
   margin-top: .5%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 }
 
 .nav-details {
+  @include flex-row-between;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 2%;
 }
 
 .nav-booking-form {
+  @include flex-column;
   align-self: flex-start;
-  display: flex;
-  flex-direction: column;
   margin-left: 5%;
   width: 33%;
 }
 
 .nav-text {
-  margin: .5% 5% .5% 5%;
   color: $dark-blue;
+  margin: .5% 5% .5% 5%;
 }
 
 .nav-form-heading {
@@ -90,9 +82,9 @@ li {
 }
 
 .login-form {
-  height: 50vh;
   @include flex-center-column;
   @include cards;
+  height: 50vh;
   ::-webkit-input-placeholder {
     text-align: center;
   }
@@ -100,8 +92,7 @@ li {
 
 .reservation-cards {
   @include cards;
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   align-items: center;
 }
 
@@ -113,8 +104,7 @@ li {
 
 .room-cards {
   @include cards;
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   margin: 2%;
 }
 
@@ -124,9 +114,8 @@ li {
 }
 
 .room-list {
+  @include flex-column;
   padding: 0;
-  display: flex;
-  flex-direction: column;
   list-style: circle;
 }
 
@@ -136,33 +125,30 @@ li {
 }
 
 .book-room-button {
+  @include button-colors;
+  @include button-input-borders;
   margin: 0 8% 8% 8%;
   align-self: center;
-  @include button-colors;
   width: 50%;
-  @include button-input-borders;
 }
 
 .room-type-form {
+  @include flex-column;
   width: 70%;
   align-self: center;
-  display: flex;
-  flex-direction: column;
   align-content: center;
 }
 
 .filter-room-title {
+  color: $dark-blue;
   align-self: center;
   margin: 10% 0 0 0;
-  color: $dark-blue;
 }
 
 .filter-form-inputs {
+  @include flex-row-center;
   align-self: center;
-  display: flex;
-  flex-direction: row;
   width: 100%;
-  justify-content: center;
 }
 
 .room-type-inputs {
@@ -192,13 +178,11 @@ li {
 }
 
 .manager-nav {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
 }
 
 .manager-nav-heading {
-  display: flex;
-  justify-content: space-between;
+  @include flex-row-between;
   align-items: flex-start;
 }
 
@@ -211,20 +195,18 @@ li {
 }
 
 .manager-nav-details-block {
+  @include flex-column;
   margin: 2% 5%;
   width: 22%;
-  display: flex;
-  flex-direction: column;
 }
 
 .manager-nav-details {
-  margin: .5% 0;
   color: $dark-blue;
+  margin: .5% 0;
 }
 
 .manager-nav-forms {
-  display: flex;
-  justify-content: space-between;
+  @include flex-row-between;
   margin-bottom: 2%;
 }
 
@@ -250,8 +232,8 @@ li {
 }
 
 .manager-nav-form-title {
-  margin: 0 0 1% 0;
   color: $dark-blue;
+  margin: 0 0 1% 0;
 }
 
 .guest-name-input {
@@ -271,10 +253,10 @@ li {
 }
 
 .cancel-room-button {
-  margin-left: 10%;
-  background-color: $error-red;
-  color: #FFF;
   @include button-input-borders;
+  background-color: $error-red;
+  margin-left: 10%;
+  color: #FFF;
 }
 
 .error-message {

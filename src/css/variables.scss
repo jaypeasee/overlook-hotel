@@ -11,6 +11,23 @@ $error-red: #ff3333;
   justify-content: center;
 }
 
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-row-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@mixin flex-row-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 @mixin login-inputs {
   width: 50%;
   margin: 2%;
