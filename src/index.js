@@ -411,14 +411,15 @@ function displayRoomTypeFilter(selectedType, filteredRooms) {
 
 function handleRoomBooking(event, nameEntered, guestProfile) {
   const roomName = event.target.parentNode.children[0].innerText;
-  nameEntered.value = "";
   if (guestProfile === "error") {
     displayNavFormError(event, "guest name");
   } else {
     const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
     const newBooking = apiData.postNewBooking(bookingFormat);
-    // getApiData();
+    getApiData();
+    displaySuccessfulBooking(event, roomName, currentHotel.date);
   }
+  nameEntered.value = "";
 }
 
 function createBookingObject(roomNumber, guestID, datePicked) {
@@ -427,4 +428,13 @@ function createBookingObject(roomNumber, guestID, datePicked) {
     date: datePicked,
     roomNumber: parseInt(roomNumber)
   };
+}
+
+function displaySuccessfulBooking(event, roomName, datePicked) {
+  const submitButton = event.target;
+  const bookingBlock =
+  `<p class="booking-success-message">${roomName} is now booked for ${datePicked}</p>`;
+  submitButton.insertAdjacentHTML('afterend', bookingBlock);
+  submitButton.disabled = true;
+  setTimeout(() => { submitButton.parentNode.remove() }, 5000);
 }

@@ -253,6 +253,10 @@ li {
   margin: 3% 0 5% 0
 }
 
+.booking-success-message {
+  align-self: center;
+}
+
 .cancel-room-button {
   @include button-input-borders;
   background-color: $error-red;

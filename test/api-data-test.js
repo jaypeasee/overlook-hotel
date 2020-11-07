@@ -45,7 +45,7 @@ describe('apiData', () => {
     expect(apiData.postNewBooking).to.have.been.called(1);
   })
 
-  it('should be call postNewBooking with a formatted booking', () => {
+  it('should call postNewBooking with a formatted booking object', () => {
     let booking = { userID: 1, date: "2020/11/29", roomNumber: 24 };
     apiData.postNewBooking(booking);
     expect(apiData.postNewBooking).to.have.been.called.with(booking);
