@@ -256,14 +256,14 @@ function handleAvailableRoomsDisplay(event, userID) {
 }
 
 function displayFilteredRoomsByDate(dateInput, event, userID) {
-  removeNavFormError(event);
+  RemoveErrorMessage(event);
   mainSection.innerHTML = "";
   displayHeading(`Available Rooms For ${dateInput.value}`);
   displayRoomTypeForm(userID)
   findOpenRooms(dateInput.value, userID);
 }
 
-function removeNavFormError(event) {
+function RemoveErrorMessage(event) {
   if (event.target.nextElementSibling) {
     event.target.nextElementSibling.remove();
   }
@@ -349,7 +349,7 @@ function displayNoVacancyMessage() {
 }
 
 function displayNavFormError(event, errorType) {
-  removeNavFormError(event);
+  RemoveErrorMessage(event);
   const dateButton = event.target;
   const errorBlock =
   `<p class="nav-error">Please enter a valid ${errorType}<p>`
@@ -368,7 +368,7 @@ function findGuestProfile(event) {
 }
 
 function displayGuestProfile(guestProfile) {
-  removeNavFormError(event);
+  RemoveErrorMessage(event);
   mainSection.innerHTML = "";
   guestProfile.retrieveAllBookings(bookingData);
   guestProfile.sortBookingsByDate('future');
@@ -412,6 +412,7 @@ function displayRoomTypeFilter(selectedType, filteredRooms) {
 
 function handleRoomBooking(event, nameEntered, guestProfile) {
   const roomName = event.target.parentNode.children[0].innerText;
+  RemoveErrorMessage(event)
   if (guestProfile === "error") {
     displayNavFormError(event, "guest name");
   } else {
