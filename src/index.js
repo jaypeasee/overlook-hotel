@@ -442,6 +442,6 @@ function displaySuccessfulBooking(event, roomName, datePicked) {
 
 function handleBookingCancellation(event) {
   const bookingToCancel = event.target.parentNode;
-  const cancellationObject = { id: bookingToCancel.dataset.id }
-  const completedCancellation = apiData.deleteBooking(cancellationObject);
+  const cancellationObject = { id: parseInt(bookingToCancel.dataset.id) }
+  apiData.deleteBooking(cancellationObject);
 }

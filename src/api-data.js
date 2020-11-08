@@ -33,6 +33,15 @@ export let apiData = {
   },
 
   deleteBooking(bookingToDelete) {
-
+    fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+      method: 'DELETE',
+      headers: {
+  	        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(bookingToDelete)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error.message))
   }
 }
