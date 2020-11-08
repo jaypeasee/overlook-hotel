@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'mixins';
+@import 'mobile';
 
 html {
   font-family: 'Poppins', sans-serif;
@@ -196,7 +197,7 @@ button {
 }
 
 .manager-nav-title, {
-  margin: 2% 0 0 5%
+  margin: 2% 0 0 5%;
 }
 
 .manager-nav-details-block {
@@ -271,24 +272,8 @@ button {
   }
 }
 
-.cancel-confirmation {
-  margin: 0 0 0 5%;
-  color: $error-red;
-}
-
 .error-message {
   color: $error-red;
   align-self: center;
   margin: 1%;
-}
-
-.nav-error {
-  color: $error-red;
-  margin: 1%;
-  align-self: center;
-}
-
-.no-vacancy-message {
-  color: $error-red;
-  align-self: center;
 }
