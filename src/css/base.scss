@@ -264,6 +264,11 @@ li {
   color: #FFF;
 }
 
+.cancel-confirmation {
+  margin: 0 0 0 5%;
+  color: $error-red;
+}
+
 .error-message {
   color: $error-red;
   align-self: center;

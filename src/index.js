@@ -441,7 +441,16 @@ function displaySuccessfulBooking(event, roomName, datePicked) {
 }
 
 function handleBookingCancellation(event) {
-  const bookingToCancel = event.target.parentNode;
+  const cancelButton = event.target
+  const bookingToCancel = cancelButton.parentNode;
   const cancellationObject = { id: parseInt(bookingToCancel.dataset.id) }
   apiData.deleteBooking(cancellationObject);
+  displayCancellation(cancelButton)
+}
+
+function displayCancellation (cancelButton) {
+  const cancelBlock =
+  `<p class="cancel-confirmation">You have cancelled this reservation</p>`;
+  cancelButton.insertAdjacentHTML('afterend', cancelBlock);
+  cancelButton.remove();
 }
