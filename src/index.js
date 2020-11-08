@@ -416,11 +416,17 @@ function handleRoomBooking(event, nameEntered, guestProfile) {
   if (guestProfile === "error") {
     displayNavFormError(event, "guest name");
   } else {
-    const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
-    const newBooking = apiCalls.postNewBooking(bookingFormat)
-    newBooking.then(() => displaySuccessfulBooking(event, roomName, currentHotel.date)).then(() => apiCalls.getBookingData()).then(response => bookingData = response).catch(error => console.log(error.message));
+    bookNewRoom(roomName, guestProfile, event)
   }
   nameEntered.value = "";
+}
+
+function bookNewRoom(roomName, guestProfile, event) {
+  const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
+  const newBooking = apiCalls.postNewBooking(bookingFormat)
+  newBooking
+    .then(() => displaySuccessfulBooking(event, roomName, currentHotel.date))
+    .then(() => updateBookingData(newBooking))
 }
 
 function createBookingObject(roomNumber, guestID, datePicked) {
@@ -429,6 +435,13 @@ function createBookingObject(roomNumber, guestID, datePicked) {
     date: datePicked,
     roomNumber: parseInt(roomNumber)
   };
+}
+
+function updateBookingData(newBooking) {
+  newBooking
+    .then(() => apiCalls.getBookingData())
+    .then(response => bookingData = response)
+    .catch(error => console.log(error.message));
 }
 
 function displaySuccessfulBooking(event, roomName, datePicked) {
