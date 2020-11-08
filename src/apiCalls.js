@@ -1,4 +1,4 @@
-export let apiData = {
+export let apiCalls = {
   getBookingData() {
     return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
       .then(response => response.json())
@@ -20,15 +20,28 @@ export let apiData = {
       .catch(error => console.log(error.message));
   },
 
-  postNewBooking(booking) {
+  postNewBooking(bookingToPost) {
     return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
       method: 'POST',
       headers: {
   	        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(booking),
+      body: JSON.stringify(bookingToPost),
     })
     .then(response => response.json())
+    .catch(error => console.log(error.message))
+  },
+
+  deleteBooking(bookingToDelete) {
+    fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+      method: 'DELETE',
+      headers: {
+  	        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(bookingToDelete)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
     .catch(error => console.log(error.message))
   }
 }

@@ -4,7 +4,7 @@ import User from './User';
 import Guest from './Guest';
 import Manager from './Manager';
 import Hotel from './Hotel';
-import { apiData } from './api-data'
+import { apiCalls } from './apiCalls'
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -28,9 +28,9 @@ mainSection.addEventListener("click", handleMainSectionClick)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function getApiData() {
-  const bookings = apiData.getBookingData();
-  const users  = apiData.getUserData();
-  const rooms = apiData.getRoomData();
+  const bookings = apiCalls.getBookingData();
+  const users  = apiCalls.getUserData();
+  const rooms = apiCalls.getRoomData();
   Promise.all([bookings, users, rooms]).then(data => {
     defineApiData(data[0], data[1], data[2]);
   })
@@ -164,7 +164,7 @@ function displayBookingsList(bookings, listBlock) {
 function displayRemovableGuestBookings(bookings, listBlock) {
   bookings.forEach(booking => {
     const listItem =
-    `<li>Room ${booking.roomNumber} on ${booking.date}
+    `<li data-id='${booking.id}'>Room ${booking.roomNumber} on ${booking.date}
      <button class="cancel-room-button">CANCEL</button>
      </li>`;
     listBlock.insertAdjacentHTML('beforeend', listItem);
@@ -256,14 +256,14 @@ function handleAvailableRoomsDisplay(event, userID) {
 }
 
 function displayFilteredRoomsByDate(dateInput, event, userID) {
-  removeNavFormError(event);
+  RemoveErrorMessage(event);
   mainSection.innerHTML = "";
   displayHeading(`Available Rooms For ${dateInput.value}`);
   displayRoomTypeForm(userID)
   findOpenRooms(dateInput.value, userID);
 }
 
-function removeNavFormError(event) {
+function RemoveErrorMessage(event) {
   if (event.target.nextElementSibling) {
     event.target.nextElementSibling.remove();
   }
@@ -349,7 +349,7 @@ function displayNoVacancyMessage() {
 }
 
 function displayNavFormError(event, errorType) {
-  removeNavFormError(event);
+  RemoveErrorMessage(event);
   const dateButton = event.target;
   const errorBlock =
   `<p class="nav-error">Please enter a valid ${errorType}<p>`
@@ -368,7 +368,7 @@ function findGuestProfile(event) {
 }
 
 function displayGuestProfile(guestProfile) {
-  removeNavFormError(event);
+  RemoveErrorMessage(event);
   mainSection.innerHTML = "";
   guestProfile.retrieveAllBookings(bookingData);
   guestProfile.sortBookingsByDate('future');
@@ -412,11 +412,12 @@ function displayRoomTypeFilter(selectedType, filteredRooms) {
 
 function handleRoomBooking(event, nameEntered, guestProfile) {
   const roomName = event.target.parentNode.children[0].innerText;
+  RemoveErrorMessage(event)
   if (guestProfile === "error") {
     displayNavFormError(event, "guest name");
   } else {
     const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
-    const newBooking = apiData.postNewBooking(bookingFormat);
+    const newBooking = apiCalls.postNewBooking(bookingFormat);
     getApiData();
     displaySuccessfulBooking(event, roomName, currentHotel.date);
   }
@@ -441,5 +442,16 @@ function displaySuccessfulBooking(event, roomName, datePicked) {
 }
 
 function handleBookingCancellation(event) {
+  const cancelButton = event.target
+  const bookingToCancel = cancelButton.parentNode;
+  const cancellationObject = { id: parseInt(bookingToCancel.dataset.id) }
+  apiCalls.deleteBooking(cancellationObject);
+  displayCancellation(cancelButton)
+}
 
+function displayCancellation (cancelButton) {
+  const cancelBlock =
+  `<p class="cancel-confirmation">You have cancelled this reservation</p>`;
+  cancelButton.insertAdjacentHTML('afterend', cancelBlock);
+  cancelButton.remove();
 }
