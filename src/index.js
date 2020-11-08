@@ -418,8 +418,7 @@ function handleRoomBooking(event, nameEntered, guestProfile) {
   } else {
     const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
     const newBooking = apiCalls.postNewBooking(bookingFormat);
-    getApiData();
-    displaySuccessfulBooking(event, roomName, currentHotel.date);
+    newBooking.then(getApiData).then(() => displaySuccessfulBooking(event, roomName, currentHotel.date))
   }
   nameEntered.value = "";
 }
@@ -437,8 +436,7 @@ function displaySuccessfulBooking(event, roomName, datePicked) {
   const bookingBlock =
   `<p class="booking-success-message">${roomName} is now booked for ${datePicked}</p>`;
   submitButton.insertAdjacentHTML('afterend', bookingBlock);
-  submitButton.disabled = true;
-  setTimeout(() => { submitButton.parentNode.remove() }, 5000);
+  submitButton.remove();
 }
 
 function handleBookingCancellation(event) {
