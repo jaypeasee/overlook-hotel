@@ -417,8 +417,8 @@ function handleRoomBooking(event, nameEntered, guestProfile) {
     displayNavFormError(event, "guest name");
   } else {
     const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
-    const newBooking = apiCalls.postNewBooking(bookingFormat);
-    newBooking.then(getApiData).then(() => displaySuccessfulBooking(event, roomName, currentHotel.date))
+    const newBooking = apiCalls.postNewBooking(bookingFormat)
+    newBooking.then(() => displaySuccessfulBooking(event, roomName, currentHotel.date)).then(() => apiCalls.getBookingData()).then(response => bookingData = response).catch(error => console.log(error.message));
   }
   nameEntered.value = "";
 }
