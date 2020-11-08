@@ -43,5 +43,12 @@ export let apiCalls = {
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.log(error.message))
+  },
+
+  getAllHotelData() {
+    const bookings = this.getBookingData();
+    const users  = this.getUserData();
+    const rooms = this.getRoomData();
+    return Promise.all([bookings, users, rooms]);
   }
 }

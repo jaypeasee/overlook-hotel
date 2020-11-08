@@ -20,20 +20,17 @@ let userData;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-window.addEventListener("load", getApiData);
+window.addEventListener("load", updateGlobalState);
 loginForm.addEventListener("click", handleLoginClick);
 navSection.addEventListener("click", handleNavClick);
 mainSection.addEventListener("click", handleMainSectionClick)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function getApiData() {
-  const bookings = apiCalls.getBookingData();
-  const users  = apiCalls.getUserData();
-  const rooms = apiCalls.getRoomData();
-  Promise.all([bookings, users, rooms]).then(data => {
+function updateGlobalState() {
+  return apiCalls.getAllHotelData().then(data => {
+    // updates all of the data for the global variables
     defineApiData(data[0], data[1], data[2]);
-  })
+  }).catch(error => console.log(error));
 }
 
 function defineApiData(bookings, users, rooms) {
@@ -418,7 +415,17 @@ function handleRoomBooking(event, nameEntered, guestProfile) {
   } else {
     const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
     const newBooking = apiCalls.postNewBooking(bookingFormat)
-    newBooking.then(() => displaySuccessfulBooking(event, roomName, currentHotel.date)).then(() => apiCalls.getBookingData()).then(response => bookingData = response).catch(error => console.log(error.message));
+    newBooking
+      .then(() => displaySuccessfulBooking(event, roomName, currentHotel.date))
+      .then(() => apiCalls.getBookingData())
+      .then(response => bookingData = response)
+      .catch(error => console.log(error.message));
+
+    // newBooking
+    //   .then(() => displaySuccessfulBooking(event, roomName, currentHotel.date))
+    //   .then(getApiData)
+    //   .then(response => console.log(response))
+    //   .catch(error => console.log(error.message));
   }
   nameEntered.value = "";
 }
