@@ -416,12 +416,17 @@ function handleRoomBooking(event, nameEntered, guestProfile) {
   if (guestProfile === "error") {
     displayNavFormError(event, "guest name");
   } else {
-    const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
-    const newBooking = apiCalls.postNewBooking(bookingFormat);
-    getApiData();
-    displaySuccessfulBooking(event, roomName, currentHotel.date);
+    bookNewRoom(roomName, guestProfile, event)
   }
   nameEntered.value = "";
+}
+
+function bookNewRoom(roomName, guestProfile, event) {
+  const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
+  const newBooking = apiCalls.postNewBooking(bookingFormat)
+  newBooking
+    .then(() => displaySuccessfulBooking(event, roomName, currentHotel.date))
+    .then(() => updateBookingData(newBooking))
 }
 
 function createBookingObject(roomNumber, guestID, datePicked) {
@@ -432,21 +437,29 @@ function createBookingObject(roomNumber, guestID, datePicked) {
   };
 }
 
+function updateBookingData(bookingChange) {
+  bookingChange
+    .then(() => apiCalls.getBookingData())
+    .then(response => bookingData = response)
+    .catch(error => console.log(error.message));
+}
+
 function displaySuccessfulBooking(event, roomName, datePicked) {
   const submitButton = event.target;
   const bookingBlock =
   `<p class="booking-success-message">${roomName} is now booked for ${datePicked}</p>`;
   submitButton.insertAdjacentHTML('afterend', bookingBlock);
-  submitButton.disabled = true;
-  setTimeout(() => { submitButton.parentNode.remove() }, 5000);
+  submitButton.remove();
 }
 
 function handleBookingCancellation(event) {
-  const cancelButton = event.target
+  const cancelButton = event.target;
   const bookingToCancel = cancelButton.parentNode;
-  const cancellationObject = { id: parseInt(bookingToCancel.dataset.id) }
-  apiCalls.deleteBooking(cancellationObject);
-  displayCancellation(cancelButton)
+  const cancellationObject = { id: parseInt(bookingToCancel.dataset.id) };
+  const newCancellation = apiCalls.deleteBooking(cancellationObject);
+  newCancellation
+    .then(() => displayCancellation(cancelButton))
+    .then(() => updateBookingData(newCancellation));
 }
 
 function displayCancellation (cancelButton) {
