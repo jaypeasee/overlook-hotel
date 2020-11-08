@@ -7,7 +7,7 @@ const apiData = require('../src/api-data');
 describe('apiData', () => {
   before(() => {
     global.apiData = {};
-    chai.spy.on(apiData, ['getBookingData', 'getUserData', 'getRoomData', 'postNewBooking'], () => {})
+    chai.spy.on(apiData, ['getBookingData', 'getUserData', 'getRoomData', 'postNewBooking', 'deleteBooking'], () => {})
   })
 
   it('should be able to call getBookingData once', () => {
@@ -49,5 +49,15 @@ describe('apiData', () => {
     let booking = { userID: 1, date: "2020/11/29", roomNumber: 24 };
     apiData.postNewBooking(booking);
     expect(apiData.postNewBooking).to.have.been.called.with(booking);
+  })
+
+  it('should be able to call deleteBooking once', () => {
+    apiData.deleteBooking()
+    expect(apiData.deleteBooking).to.have.been.called(1);
+  })
+
+  it('should call deleteBooking with an object ID', () => {
+    apiData.deleteBooking({ id: 6 });
+    expect(apiData.deleteBooking).to.have.been.called.with({ id: 6 });
   })
 })
