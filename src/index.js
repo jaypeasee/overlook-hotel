@@ -437,8 +437,8 @@ function createBookingObject(roomNumber, guestID, datePicked) {
   };
 }
 
-function updateBookingData(newBooking) {
-  newBooking
+function updateBookingData(booking) {
+  booking
     .then(() => apiCalls.getBookingData())
     .then(response => bookingData = response)
     .catch(error => console.log(error.message));
@@ -456,8 +456,10 @@ function handleBookingCancellation(event) {
   const cancelButton = event.target
   const bookingToCancel = cancelButton.parentNode;
   const cancellationObject = { id: parseInt(bookingToCancel.dataset.id) }
-  apiCalls.deleteBooking(cancellationObject);
-  displayCancellation(cancelButton)
+  const newCancellation = apiCalls.deleteBooking(cancellationObject)
+  newCancellation
+    .then(() => displayCancellation(cancelButton))
+    .then(() => updateBookingData(newCancellation))
 }
 
 function displayCancellation (cancelButton) {
