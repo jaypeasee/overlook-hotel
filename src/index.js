@@ -4,7 +4,7 @@ import User from './User';
 import Guest from './Guest';
 import Manager from './Manager';
 import Hotel from './Hotel';
-import { apiData } from './api-data'
+import { apiCalls } from './apiCalls'
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -28,9 +28,9 @@ mainSection.addEventListener("click", handleMainSectionClick)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function getApiData() {
-  const bookings = apiData.getBookingData();
-  const users  = apiData.getUserData();
-  const rooms = apiData.getRoomData();
+  const bookings = apiCalls.getBookingData();
+  const users  = apiCalls.getUserData();
+  const rooms = apiCalls.getRoomData();
   Promise.all([bookings, users, rooms]).then(data => {
     defineApiData(data[0], data[1], data[2]);
   })
@@ -417,7 +417,7 @@ function handleRoomBooking(event, nameEntered, guestProfile) {
     displayNavFormError(event, "guest name");
   } else {
     const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
-    const newBooking = apiData.postNewBooking(bookingFormat);
+    const newBooking = apiCalls.postNewBooking(bookingFormat);
     getApiData();
     displaySuccessfulBooking(event, roomName, currentHotel.date);
   }
@@ -445,7 +445,7 @@ function handleBookingCancellation(event) {
   const cancelButton = event.target
   const bookingToCancel = cancelButton.parentNode;
   const cancellationObject = { id: parseInt(bookingToCancel.dataset.id) }
-  apiData.deleteBooking(cancellationObject);
+  apiCalls.deleteBooking(cancellationObject);
   displayCancellation(cancelButton)
 }
 
