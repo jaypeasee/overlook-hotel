@@ -28,7 +28,7 @@ h1 {
 
 li {
   @include flex-row-center;
-  padding: 2% 15%;
+  padding: 2% 10%;
 }
 
 button {
@@ -51,7 +51,6 @@ button {
 
 .nav-details {
   @include flex-row-between;
-  display: flex;
   margin-bottom: 2%;
 }
 
@@ -64,7 +63,7 @@ button {
 
 .nav-text {
   color: $dark-blue;
-  margin: .5% 5% .5% 5%;
+  margin: .5% 5%;
 }
 
 .nav-form-heading {
@@ -105,6 +104,7 @@ button {
   list-style: none;
   padding-left: 0;
   width: 100%;
+  align-items: flex-start;
 }
 
 .room-cards {
@@ -160,7 +160,7 @@ button {
   @include button-input-borders;
   width: 33%;
   align-self: center;
-  margin: 5% 3%
+  margin: 5% 3%;
 }
 
 .room-type-button {
@@ -257,14 +257,35 @@ button {
   margin: 3% 0 5% 0
 }
 
+.customer-info {
+  width: 30%;
+}
+
+.dashboard-link {
+  margin-top: 5%;
+  text-decoration: underline;
+  &:hover {
+    color: $light-blue;
+    text-decoration: none;
+  }
+  cursor: pointer;
+}
+
 .booking-success-message {
   align-self: center;
+  color: $confirmation-green;
+}
+
+.cancel-confirmation {
+  margin: 0 5%;
+  color: $confirmation-green;
 }
 
 .cancel-room-button {
   @include button-input-borders;
   background-color: $error-red;
   margin-left: 10%;
+  width: 25%;
   color: #FFF;
   &:hover {
     opacity: 75%;
@@ -306,6 +327,7 @@ button {
 }
 
 @media only screen and (max-width: 600px) {
+
   .login-form {
     @include mobileCards;
     height: 30vh;
@@ -386,16 +408,12 @@ button {
     font-size: 1em;
   }
 
-  .manager-nav-input, .manager-nav-button {
+  .manager-nav-input, .manager-nav-button, .room-type-inputs {
     width: 45%;
   }
 
   .manager-book-room-button, .guest-name-input {
     width: 75%;
-  }
-
-  .room-type-inputs {
-    width: 45%;
   }
 
   .filter-form-inputs {
@@ -404,5 +422,30 @@ button {
 
   .room-type-form {
     width: 90%;
+  }
+
+  .error-message {
+    font-size: .9em;
+    text-align: center;
+    margin: 5%;
+  }
+
+  .booking-success-message {
+    margin: 3%;
+    text-align: center;
+  }
+
+  .main-title {
+    font-size: 1.25em;
+  }
+
+  .cancel-confirmation {
+    font-size: .75em;
+  }
+
+  .customer-info {
+    align-self: center;
+    width: 100%;
+    text-align: center;
   }
 }

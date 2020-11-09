@@ -47,9 +47,7 @@ function defineApiData(bookings, users, rooms) {
 function handleLoginClick(event) {
   const usernameInput = document.querySelector('.login-username-input');
   const passwordInput = document.querySelector('.login-password-input');
-  if (event.target.className === "login-button"
-  && usernameInput.value !== ""
-  && passwordInput.value !== "") {
+  if (event.target.className === "login-button") {
     createUser(usernameInput.value, passwordInput.value);
     clearForm(usernameInput, passwordInput);
   }
@@ -101,18 +99,26 @@ function displayGuestNav() {
     `<div class="guest-nav">
       <div class="nav-headings">
         <h2 class="nav-text">Welcome ${currentGuest.name}!</h2>
-        <h3 class="nav-text">${currentGuest.date}</h3>
+        <h3 class="nav-text">Today's Date: ${formatDateForDisplay(currentGuest.date)}</h3>
       </div>
       <div class="nav-details">
         <article class="nav-booking-form">
           <h3 class="nav-form-heading nav-text">Book A Room</h3>
           <input aria-label="date-input" type="date" class="date-availability-input">
-          <button class="date-availability-button">CHECK AVAILABILITY!</button>
+          <button class="customer-nav-button date-availability-button">CHECK AVAILABILITY!</button>
         </article>
-        <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent.toFixed(2)}</h4>
+        <div class="customer-info">
+          <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent.toFixed(2)}</h4>
+          <h4 class="dashboard-link nav-text">VIEW YOUR DASHBOARD</h4>
+        </div>
       </div>
     </div>`
   navSection.insertAdjacentHTML('afterbegin', navBlock);
+}
+
+function formatDateForDisplay(originalFormat) {
+  const date = new Date(originalFormat);
+  return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 }
 
 function displayHeading(sectionHeading) {
@@ -156,7 +162,7 @@ function handleBookingsList(bookings, guestProfile) {
 function displayBookingsList(bookings, listBlock) {
   bookings.forEach(booking => {
     const listItem =
-    `<li>Room ${booking.roomNumber} on ${booking.date}</li>`;
+    `<li>Room ${booking.roomNumber} on ${formatDateForDisplay(booking.date)}</li>`;
     listBlock.insertAdjacentHTML('beforeend', listItem);
   })
 }
@@ -164,7 +170,7 @@ function displayBookingsList(bookings, listBlock) {
 function displayRemovableGuestBookings(bookings, listBlock) {
   bookings.forEach(booking => {
     const listItem =
-    `<li data-id='${booking.id}'>Room ${booking.roomNumber} on ${booking.date}
+    `<li data-id='${booking.id}'>Room ${booking.roomNumber} on ${formatDateForDisplay(booking.date)}
      <button class="cancel-room-button">CANCEL</button>
      </li>`;
     listBlock.insertAdjacentHTML('beforeend', listItem);
@@ -201,7 +207,7 @@ function displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms) {
         <h1 class="manager-nav-title">Welcome Manager!</h1>
       </div>
       <div class="manager-nav-details-block">
-        <h2 class="manager-nav-details">Today's Date: ${currentManager.date}</h2>
+        <h2 class="manager-nav-details">Today's Date: ${formatDateForDisplay(currentManager.date)}</h2>
         <h3 class="manager-nav-details">Available Rooms: ${availableRooms.length}</h3>
         <h3 class="manager-nav-details">Occupancy: ${hotelOccupancy}</h3>
         <h3 class="manager-nav-details">Total Revenue Today: $${todaysRevenue.toFixed(2)}</h3>
@@ -243,6 +249,8 @@ function handleNavClick(event) {
     handleAvailableRoomsDisplay(event, currentUser.id)
   } else if (event.target.classList.contains("search-user-button")) {
     findGuestProfile(event)
+  } else if (event.target.classList.contains("dashboard-link")) {
+    displayGuestHome();
   }
 }
 
@@ -258,7 +266,7 @@ function handleAvailableRoomsDisplay(event, userID) {
 function displayFilteredRoomsByDate(dateInput, event, userID) {
   RemoveErrorMessage(event);
   mainSection.innerHTML = "";
-  displayHeading(`Available Rooms For ${dateInput.value}`);
+  displayHeading(`Available Rooms For ${formatDateForDisplay(dateInput.value)}`);
   displayRoomTypeForm(userID)
   findOpenRooms(dateInput.value, userID);
 }
@@ -344,7 +352,8 @@ function displayAvailableRoomsForManager() {
 }
 
 function displayNoVacancyMessage() {
-  const apologyBlock = `<h3 class="no-vacancy-message">There are vacancies for ${currentHotel.date}. Please choose a different date.`;
+  const apologyBlock =
+  `<h3 class="error-message">There are vacancies for ${formatDateForDisplay(currentHotel.date)}. Please choose a different date.</h3>`;
   mainSection.insertAdjacentHTML('beforeend', apologyBlock);
 }
 
@@ -352,7 +361,7 @@ function displayNavFormError(event, errorType) {
   RemoveErrorMessage(event);
   const dateButton = event.target;
   const errorBlock =
-  `<p class="nav-error">Please enter a valid ${errorType}<p>`
+  `<p class="error-message">Please enter a valid ${errorType}<p>`
   dateButton.insertAdjacentHTML('afterend', errorBlock);
 }
 
@@ -405,7 +414,7 @@ function handleRoomTypeFilter(event) {
 }
 
 function displayRoomTypeFilter(selectedType, filteredRooms) {
-  displayHeading(`Available ${selectedType}s For ${currentHotel.date}`);
+  displayHeading(`Available ${selectedType}s For ${formatDateForDisplay(currentHotel.date)}`);
   displayRoomTypeForm(currentGuest.id)
   displayAvailableRoomsForGuest(filteredRooms);
 }
@@ -447,7 +456,7 @@ function updateBookingData(bookingChange) {
 function displaySuccessfulBooking(event, roomName, datePicked) {
   const submitButton = event.target;
   const bookingBlock =
-  `<p class="booking-success-message">${roomName} is now booked for ${datePicked}</p>`;
+  `<p class="booking-success-message">${roomName} is now booked for ${formatDateForDisplay(datePicked)}</p>`;
   submitButton.insertAdjacentHTML('afterend', bookingBlock);
   submitButton.remove();
 }
