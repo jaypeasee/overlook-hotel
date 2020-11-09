@@ -10,7 +10,7 @@ The manager, upon logging in, is provided with their own dashboard that displays
 
 The [booking](https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings), [user](https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users), and [room](https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms) data is all fetched from, posted to and deleted from separate APIs.
 
-The complete project spec and rubric can be founder [here](https://frontend.turing.io/projects/overlook.html)
+The complete project spec and rubric can be founder [here](https://frontend.turing.io/projects/overlook.html).
 
 ## Setup Instructions:
 
