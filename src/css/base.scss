@@ -287,8 +287,8 @@ button {
   }
 
   .login-form {
-    width: 80%;
-    height: 30vh
+    @include mobileCards;
+    height: 30vh;
   }
 
   .login-title {
@@ -351,5 +351,47 @@ button {
   .main-title {
     text-align: center;
     font-size: 1.75em;
+  }
+
+  .reservation-cards {
+    @include mobileCards;
+  }
+
+  .cancel-room-button {
+    width: 30%
+  }
+
+  .room-cards {
+    @include mobileCards;
+  }
+
+  .room-type-button {
+    width: 50%;
+  }
+
+  .nav-headings {
+    flex-direction: column;
+  }
+
+  .nav-details {
+    flex-direction: column-reverse;
+  }
+
+  .nav-text {
+    align-self: center;
+  }
+
+  .nav-booking-form {
+    align-self: center;
+  }
+
+  .date-availability-input, .date-availability-button {
+    width: 150%;
+    align-self: center;
+    margin: 2%;
+  }
+
+  .nav-form-heading {
+    margin-top: 5%;
   }
 }

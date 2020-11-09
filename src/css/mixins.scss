@@ -61,3 +61,7 @@
   padding: 0 2% 0 2%;
   height: 30px;
 }
+
+@mixin mobileCards {
+  width: 80%;
+}
