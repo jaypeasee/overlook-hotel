@@ -107,7 +107,10 @@ function displayGuestNav() {
           <input aria-label="date-input" type="date" class="date-availability-input">
           <button class="customer-nav-button date-availability-button">CHECK AVAILABILITY!</button>
         </article>
-        <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent.toFixed(2)}</h4>
+        <div class="customer-info">
+          <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent.toFixed(2)}</h4>
+          <h4 class="dashboard-link nav-text">VIEW YOUR DASHBOARD</h4>
+        </div>
       </div>
     </div>`
   navSection.insertAdjacentHTML('afterbegin', navBlock);
@@ -246,6 +249,8 @@ function handleNavClick(event) {
     handleAvailableRoomsDisplay(event, currentUser.id)
   } else if (event.target.classList.contains("search-user-button")) {
     findGuestProfile(event)
+  } else if (event.target.classList.contains("dashboard-link")) {
+    displayGuestHome();
   }
 }
 

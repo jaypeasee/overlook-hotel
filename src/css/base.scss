@@ -160,7 +160,7 @@ button {
   @include button-input-borders;
   width: 33%;
   align-self: center;
-  margin: 5% 3%
+  margin: 5% 3%;
 }
 
 .room-type-button {
@@ -255,6 +255,20 @@ button {
   width: 50%;
   align-self: center;
   margin: 3% 0 5% 0
+}
+
+.customer-info {
+  width: 30%;
+}
+
+.dashboard-link {
+  margin-top: 5%;
+  text-decoration: underline;
+  &:hover {
+    color: $light-blue;
+    text-decoration: none;
+  }
+  cursor: pointer;
 }
 
 .booking-success-message {
