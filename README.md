@@ -6,9 +6,11 @@
 
 The guests, upon logging in, are provided with a unique dashboard that allows them to see today's date, the total amount they have spent at the hotel, and their booking history (past, present, and future). Guests can also search dates in the future to see the hotel's room availability, filter their searches by room type and book rooms.
 
-The manager, upon logging in, is provided with their own dashboard that displays today's date, the hotel's revenue for that date, the number of rooms available that day. Like guests, the manager can also search dates in the future to see the hotel's room availability and book a room for a guest. In addtion, the manager can search a guest by name to see their booking history (past, present, and future). The manager has the option to cancel future bookings for the guest they searched.
+The manager, upon logging in, is provided with their own dashboard that displays today's date, the hotel's revenue for that date, the number of rooms available that day, and the percent occupancy of the hotel. Like guests, the manager can also search dates in the future to see the hotel's room availability and book a room for a guest. In addtion, the manager can search a guest by name to see their booking history (past, present, and future). The manager has the option to cancel future bookings for the guest they searched.
 
 The [booking](https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings), [user](https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users), and [room](https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms) data is all fetched from, posted to and deleted from separate APIs.
+
+The complete project spec and rubric can be founder [here](https://frontend.turing.io/projects/overlook.html)
 
 ## Setup Instructions:
 
