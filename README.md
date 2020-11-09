@@ -51,17 +51,17 @@ The complete project spec and rubric can be found [here](https://frontend.turing
 
 ## Learning Goals:
 
-1. Work with APIs to receive and send Data that dictated content on the page.
-2. Creating a robust testing suite that drove the object oriented programming process.
-3. Using event delegation to control almost the entirety of the `DOM` manipulation.
-4. Using rules and tools within `scss` to separate and `DRY` up the stylesheets.
-5. Using `media queries` to make a fully responsive page.
+1. Work with APIs to receive and send data that dictate content on the page.
+2. Create a robust testing suite that drives the `OOP` process.
+3. Use `event delegation` to control almost the entirety of `DOM` manipulation.
+4. Use tools within `scss` to separate and `DRY` up stylesheets.
+5. Use `media queries` to make a fully responsive page.
 
 ## Planning:
 
 While this was a solo project. There was quite a lot of planning involved, including but not limited to:
 
-* A [Class Structure Document](https://github.com/jaypeasee/overlook-hotel/blob/main/planning/ClassStructure.md)
+* A [Class Structure Outline](https://github.com/jaypeasee/overlook-hotel/blob/main/planning/ClassStructure.md)
 * A [Login Experience Wireframe](https://github.com/jaypeasee/overlook-hotel/blob/main/planning/logInView.png)
 * A [Guest Experience Wireframe](https://github.com/jaypeasee/overlook-hotel/blob/main/planning/customerView.png)
 * A [Manager Experience Wireframe](https://github.com/jaypeasee/overlook-hotel/blob/main/planning/managerView.png)
