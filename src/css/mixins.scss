@@ -49,6 +49,9 @@
 @mixin button-colors {
   background-color: $dark-blue;
   color: #FFF;
+  &:hover {
+    opacity: 90%;
+  }
 }
 
 @mixin button-input-borders {
@@ -57,4 +60,8 @@
   outline: none;
   padding: 0 2% 0 2%;
   height: 30px;
+}
+
+@mixin mobileCards {
+  width: 80%;
 }

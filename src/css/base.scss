@@ -31,6 +31,10 @@ li {
   padding: 2% 15%;
 }
 
+button {
+  cursor: pointer;
+}
+
 .login-title {
   align-self: center;
 }
@@ -192,7 +196,7 @@ li {
 }
 
 .manager-nav-title, {
-  margin: 2% 0 0 5%
+  margin: 2% 0 0 5%;
 }
 
 .manager-nav-details-block {
@@ -262,25 +266,143 @@ li {
   background-color: $error-red;
   margin-left: 10%;
   color: #FFF;
-}
-
-.cancel-confirmation {
-  margin: 0 0 0 5%;
-  color: $error-red;
+  &:hover {
+    opacity: 75%;
+  }
 }
 
 .error-message {
   color: $error-red;
   align-self: center;
-}
-
-.nav-error {
-  color: $error-red;
   margin: 1%;
-  align-self: center;
 }
 
-.no-vacancy-message {
-  color: $error-red;
-  align-self: center;
+@media only screen and (max-width: 1300px) {
+  .login-form, .reservation-cards, .room-cards {
+    width: 58%;
+  }
+
+  .manager-nav-details-block {
+    width: 30%;
+  }
+
+  .manager-date-form {
+    width: 35%;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .login-form, .reservation-cards, .room-cards {
+    width: 65%;
+  }
+
+  .manager-nav-details-block {
+    width: 40%;
+  }
+
+  .manager-date-form {
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .login-form {
+    @include mobileCards;
+    height: 30vh;
+  }
+
+  .login-title {
+    font-size: 1.25em;
+  }
+
+  .manager-nav, .nav-headings {
+    @include flex-column;
+  }
+
+  .manager-nav-heading, .manager-nav-forms {
+    @include flex-center-column;
+  }
+
+  .manager-nav-title-block {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .manager-nav-details-block {
+    width: 90%;
+    margin: 0;
+    align-content: center;
+  }
+
+  .manager-user-form, .manager-date-form{
+    width: 90%;
+    margin: 5%;
+  }
+
+  .manager-nav-details {
+    margin: 0;
+    align-self: center;
+  }
+
+  .manager-nav-title {
+    align-self: center;
+    font-size: 1.75em;
+  }
+
+  .main-title {
+    text-align: center;
+    font-size: 1.75em;
+  }
+
+  .reservation-cards, .room-cards {
+    @include mobileCards;
+  }
+
+  .cancel-room-button {
+    width: 40%;
+  }
+
+  .room-type-button {
+    width: 80%;
+  }
+
+  .nav-details {
+    flex-direction: column-reverse;
+  }
+
+  .nav-text, .nav-booking-form {
+    align-self: center;
+  }
+
+  .date-availability-input, .customer-nav-button {
+    width: 150%;
+    align-self: center;
+    margin: 2%;
+  }
+
+  .nav-form-heading {
+    margin-top: 10%;
+    font-size: 1em;
+  }
+
+  .manager-nav-input, .manager-nav-button {
+    width: 45%;
+  }
+
+  .manager-book-room-button, .guest-name-input {
+    width: 75%;
+  }
+
+  .room-type-inputs {
+    width: 45%;
+  }
+
+  .filter-form-inputs {
+    width: 100%;
+  }
+
+  .room-type-form {
+    width: 90%;
+  }
 }
