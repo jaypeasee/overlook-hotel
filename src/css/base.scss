@@ -360,11 +360,11 @@ button {
   }
 
   .cancel-room-button {
-    width: 30%
+    width: 40%;
   }
 
   .room-type-button {
-    width: 50%;
+    width: 80%;
   }
 
   .nav-details {
@@ -383,9 +383,26 @@ button {
 
   .nav-form-heading {
     margin-top: 10%;
+    font-size: 1em;
   }
 
   .manager-nav-input, .manager-nav-button {
     width: 45%;
+  }
+
+  .manager-book-room-button, .guest-name-input {
+    width: 75%;
+  }
+
+  .room-type-inputs {
+    width: 45%;
+  }
+
+  .filter-form-inputs {
+    width: 100%;
+  }
+
+  .room-type-form {
+    width: 90%;
   }
 }
