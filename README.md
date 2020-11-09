@@ -23,7 +23,7 @@ The complete project spec and rubric can be found [here](https://frontend.turing
 4. To see the page locally:
 
    1. Run `npm start`
-   2. Take copy and paste the provided server url to your browser.
+   2. Copy and paste the provided local server url to your browser.
 
 5. To review all of the tests run in `Mocha` run `npm test`.
 
