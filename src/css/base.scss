@@ -320,27 +320,17 @@ button {
 
   }
 
-  .manager-user-form {
+  .manager-user-form, .manager-date-form{
     width: 90%;
-  }
-
-  .manager-date-form {
-    width: 90%;
+    margin: 5%;
   }
 
   .manager-nav-details {
-    width: 90%;
     margin: 0;
     align-self: center;
   }
 
   .manager-nav-form-title {
-
-    margin: 0;
-  }
-
-  .manager-user-form {
-    align-self: center;
     margin: 0;
   }
 
@@ -385,13 +375,17 @@ button {
     align-self: center;
   }
 
-  .date-availability-input, .date-availability-button {
+  .date-availability-input, .customer-nav-button {
     width: 150%;
     align-self: center;
     margin: 2%;
   }
 
   .nav-form-heading {
-    margin-top: 5%;
+    margin-top: 10%;
+  }
+
+  .manager-nav-input, .manager-nav-button {
+    width: 45%;
   }
 }
