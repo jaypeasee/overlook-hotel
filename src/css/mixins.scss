@@ -52,6 +52,9 @@
   &:hover {
     opacity: 90%;
   }
+  &:active {
+    background-color: $light-blue;
+    opacity: 100%;
 }
 
 @mixin button-input-borders {
