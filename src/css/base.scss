@@ -277,15 +277,35 @@ button {
   margin: 1%;
 }
 
+@media only screen and (max-width: 1300px) {
+  .login-form, .reservation-cards, .room-cards {
+    width: 58%;
+  }
+
+  .manager-nav-details-block {
+    width: 30%;
+  }
+  
+  .manager-date-form {
+    width: 35%;
+  }
+}
+
+@media only screen and (max-width: 1110px) {
+  .login-form, .reservation-cards, .room-cards {
+    width: 65%;
+  }
+
+  .manager-nav-details-block {
+    width: 40%;
+  }
+
+  .manager-date-form {
+    width: 45%;
+  }
+}
+
 @media only screen and (max-width: 600px) {
-  html {
-    width: 100%;
-  }
-
-  body {
-    width: 100%;
-  }
-
   .login-form {
     @include mobileCards;
     height: 30vh;
@@ -295,15 +315,11 @@ button {
     font-size: 1.25em;
   }
 
-  .manager-nav {
-    flex-direction: column;
+  .manager-nav, .nav-headings {
+    @include flex-column;
   }
 
-  .manager-nav-heading {
-    @include flex-center-column;
-  }
-
-  .manager-nav-forms {
+  .manager-nav-heading, .manager-nav-forms {
     @include flex-center-column;
   }
 
@@ -317,7 +333,6 @@ button {
     width: 90%;
     margin: 0;
     align-content: center;
-
   }
 
   .manager-user-form, .manager-date-form{
@@ -330,12 +345,9 @@ button {
     align-self: center;
   }
 
-  .manager-nav-form-title {
-    margin: 0;
-  }
-
   .manager-nav-title {
     align-self: center;
+    font-size: 1.75em;
   }
 
   .main-title {
@@ -343,7 +355,7 @@ button {
     font-size: 1.75em;
   }
 
-  .reservation-cards {
+  .reservation-cards, .room-cards {
     @include mobileCards;
   }
 
@@ -351,27 +363,15 @@ button {
     width: 30%
   }
 
-  .room-cards {
-    @include mobileCards;
-  }
-
   .room-type-button {
     width: 50%;
-  }
-
-  .nav-headings {
-    flex-direction: column;
   }
 
   .nav-details {
     flex-direction: column-reverse;
   }
 
-  .nav-text {
-    align-self: center;
-  }
-
-  .nav-booking-form {
+  .nav-text, .nav-booking-form {
     align-self: center;
   }
 
