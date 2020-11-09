@@ -1,6 +1,5 @@
 @import 'variables';
 @import 'mixins';
-@import 'mobile';
 
 html {
   font-family: 'Poppins', sans-serif;
@@ -276,4 +275,81 @@ button {
   color: $error-red;
   align-self: center;
   margin: 1%;
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    width: 100%;
+  }
+
+  body {
+    width: 100%;
+  }
+
+  .login-form {
+    width: 80%;
+    height: 30vh
+  }
+
+  .login-title {
+    font-size: 1.25em;
+  }
+
+  .manager-nav {
+    flex-direction: column;
+  }
+
+  .manager-nav-heading {
+    @include flex-center-column;
+  }
+
+  .manager-nav-forms {
+    @include flex-center-column;
+  }
+
+  .manager-nav-title-block {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .manager-nav-details-block {
+    width: 90%;
+    margin: 0;
+    align-content: center;
+
+  }
+
+  .manager-user-form {
+    width: 90%;
+  }
+
+  .manager-date-form {
+    width: 90%;
+  }
+
+  .manager-nav-details {
+    width: 90%;
+    margin: 0;
+    align-self: center;
+  }
+
+  .manager-nav-form-title {
+
+    margin: 0;
+  }
+
+  .manager-user-form {
+    align-self: center;
+    margin: 0;
+  }
+
+  .manager-nav-title {
+    align-self: center;
+  }
+
+  .main-title {
+    text-align: center;
+    font-size: 1.75em;
+  }
 }
