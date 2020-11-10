@@ -73,7 +73,7 @@ const booking5 = {
   date: "2020/01/19",
   roomNumber: 6,
   roomServiceCharges: []
-}
+};
 
 const booking6 = {
   id: "5fwrgu4i7k55hl6tv",
@@ -81,7 +81,7 @@ const booking6 = {
   date: "2020/09/19",
   roomNumber: 4,
   roomServiceCharges: []
-}
+};
 
 const booking7 = {
   id: "5fwrgu4i7k55hl6tv",
@@ -89,7 +89,7 @@ const booking7 = {
   date: "2020/12/19",
   roomNumber: 23,
   roomServiceCharges: []
-}
+};
 
 const booking8 = {
   id: "5fwrgu4i7k55hl6tv",
@@ -97,7 +97,7 @@ const booking8 = {
   date: "2020/12/25",
   roomNumber: 23,
   roomServiceCharges: []
-}
+};
 
 const booking9 = {
   id: "5fwrgu4i7k55hl6tv",
@@ -105,7 +105,7 @@ const booking9 = {
   date: moment().format('YYYY-MM-DD'),
   roomNumber: 13,
   roomServiceCharges: []
-}
+};
 
 const booking10 = {
   id: "5fwrgu4i7kdfhl6tv",
@@ -117,7 +117,7 @@ const booking10 = {
 
 const guest1 = { username: "customer1", name: "Remus Lupin" };
 const guest2 = { username: "customer2", name: "Ron Weasley" };
-const guest3 = { username: "customer3", name: "Neville Longbottom"};
+const guest3 = { username: "customer3", name: "Neville Longbottom" };
 
 export const allHotelRooms = [
   hotelRoom1,
