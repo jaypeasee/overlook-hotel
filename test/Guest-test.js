@@ -50,13 +50,13 @@ describe('Guest', () => {
   it('should be able to calculate total amount spent at the hotel for a guest', () => {
     guest1.calculateTotalSpent(allBookings, hotel);
 
-    expect(guest1.totalAmountSpent).to.equal(783.79);
+    expect(guest1.totalAmountSpent).to.equal('783.79');
   })
 
   it('should be able to calculate a total amount for a different guest', () => {
     guest2.calculateTotalSpent(allBookings, hotel);
 
-    expect(guest2.totalAmountSpent).to.equal(847.84);
+    expect(guest2.totalAmountSpent).to.equal('847.84');
   })
 
   it('should be able to organize its booking history', () => {

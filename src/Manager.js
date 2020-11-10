@@ -20,7 +20,7 @@ class Manager extends User {
 
   filterTodaysBookings(allBookings) {
     return allBookings.filter(booking => {
-      return booking.date.replaceAll("/", "-") === this.date;
+      return booking.date.replace("/", "-").replace("/", "-") === this.date;
     })
   }
 

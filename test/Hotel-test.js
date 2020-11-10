@@ -1,7 +1,8 @@
 import chai from 'chai';
 const expect = chai.expect;
 import Hotel from '../src/Hotel';
-import { allHotelRooms, allBookings } from './sample-test-data'
+import { allHotelRooms, allBookings } from './sample-test-data';
+import moment from 'moment';
 
 describe('Hotel', () => {
   let hotel;
@@ -22,8 +23,8 @@ describe('Hotel', () => {
     expect(hotel.rooms).to.deep.equal([allHotelRooms[0], allHotelRooms[1], allHotelRooms[2], allHotelRooms[3]]);
   })
 
-  it('should have an undefined date to start', () => {
-    expect(hotel.date).to.equal(undefined);
+  it('should have a default date of today', () => {
+    expect(hotel.date).to.equal(moment().format('YYYY/MM/DD'));
   })
 
   it('should be able to assign a date', () => {
