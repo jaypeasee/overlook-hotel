@@ -1,7 +1,9 @@
+import moment from 'moment';
+
 class Hotel {
   constructor(rooms) {
     this.rooms = rooms;
-    this.date = undefined;
+    this.date = moment().format("YYYY/MM/DD");
   }
 
   retrieveAvailableRooms(allBookings) {
