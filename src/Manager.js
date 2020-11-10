@@ -3,7 +3,7 @@ import Guest from './Guest';
 
 class Manager extends User {
   constructor(username) {
-    super(username)
+    super(username);
   }
 
   searchForGuest(guestName, allGuests) {
@@ -11,22 +11,24 @@ class Manager extends User {
       return guestName === guest.name;
     })
     if (searchedGuest) {
-      const guestProfile = new Guest(`customer${searchedGuest.id}`, searchedGuest.name);
+      const guestProfile =
+      new Guest(`customer${searchedGuest.id}`, searchedGuest.name);
       guestProfile.id = searchedGuest.id;
       return guestProfile;
     }
-    return "error";
+    return 'error';
   }
 
   filterTodaysBookings(allBookings) {
     return allBookings.filter(booking => {
-      return booking.date === this.date;
+      return booking.date.replace("/", "-").replace("/", "-") === this.date;
     })
   }
 
   calculateOccupancyToday(allBookings, totalNumberOfRooms) {
     const bookedRooms = this.filterTodaysBookings(allBookings);
-    const percentOccupancy = Math.round(bookedRooms.length / totalNumberOfRooms * 100);
+    const percentOccupancy =
+    Math.round(bookedRooms.length / totalNumberOfRooms * 100);
     return `${percentOccupancy}%`;
   }
 
@@ -40,7 +42,6 @@ class Manager extends User {
       })
       return totalRevenue;
     }, 0)
-    return totalRevenue;
   }
 }
 

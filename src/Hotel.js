@@ -1,7 +1,9 @@
+import moment from 'moment';
+
 class Hotel {
   constructor(rooms) {
     this.rooms = rooms;
-    this.date = undefined;
+    this.date = moment().format("YYYY/MM/DD");
   }
 
   retrieveAvailableRooms(allBookings) {
@@ -14,12 +16,12 @@ class Hotel {
     const availableRooms = this.rooms.filter(room => {
       return !takenRoomNumbers.includes(room.number);
     })
-      return availableRooms;
+    return availableRooms;
   }
 
   filterRoomsByType(allBookings, roomType) {
     const matchedRooms = this.retrieveAvailableRooms(allBookings);
-    if (roomType === "all rooms") {
+    if (roomType === 'all rooms') {
       return matchedRooms;
     }
     const roomsByType = matchedRooms.filter(room => {

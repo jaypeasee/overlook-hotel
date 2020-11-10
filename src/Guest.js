@@ -18,18 +18,19 @@ class Guest extends User {
 
   calculateTotalSpent(allBookings, hotel) {
     const guestHistory = this.findBookingRecords(allBookings);
-    hotel.rooms.forEach(room => {
+    const calculatedAmount = hotel.rooms.reduce((sum, room) => {
       guestHistory.forEach(booking => {
         if (booking.roomNumber === room.number) {
-          this.totalAmountSpent += room.costPerNight;
+          sum += room.costPerNight;
         }
       })
-      this.totalAmountSpent = Math.round(this.totalAmountSpent * 100) / 100;
-    })
+      return sum;
+    }, 0)
+    this.totalAmountSpent = calculatedAmount.toFixed(2);
   }
 
   retrieveAllBookings(allBookings) {
-    const guestHistory = this.findBookingRecords(allBookings)
+    const guestHistory = this.findBookingRecords(allBookings);
     guestHistory.forEach(booking => {
       if (booking.date === this.date) {
         this.presentBookings.push(booking);
@@ -42,12 +43,12 @@ class Guest extends User {
   }
 
   sortBookingsByDate(timePeriod) {
-    if (this.futureBookings.length > 0 && timePeriod === "future") {
-      const sortedFuture = this.futureBookings.sort((futureA, futureB) => {
-        return futureA.date > futureB.date ? 1 : -1
+    if (this.futureBookings.length > 0 && timePeriod === 'future') {
+      this.futureBookings.sort((futureA, futureB) => {
+        return futureA.date > futureB.date ? 1 : -1;
       })
-    } else if (this.pastBookings.length > 0 && timePeriod === "past") {
-      const sortedPast = this.pastBookings.sort((pastA, pastB) => {
+    } else if (this.pastBookings.length > 0 && timePeriod === 'past') {
+      this.pastBookings.sort((pastA, pastB) => {
         return pastA.date < pastB.date ? 1 : -1;
       })
     }
