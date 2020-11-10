@@ -1,6 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
 import User from '../src/User';
+import moment from 'moment';
 
 describe('User', () => {
   let user1;
@@ -51,7 +52,7 @@ describe('User', () => {
   })
 
   it('should have today\'s date', () => {
-    expect(user1.date).to.equal(new Date().toISOString().split('T')[0]);
+    expect(user1.date).to.equal(moment().format('YYYY-MM-DD'));
   })
 
   it('should determine if it\'s user type is a manager', () => {
