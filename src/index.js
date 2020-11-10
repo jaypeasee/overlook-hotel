@@ -82,10 +82,12 @@ function createGuest(currentUser) {
 }
 
 function runGuestMethods() {
-  currentGuest.calculateTotalSpent(bookingData, currentHotel);
-  currentGuest.retrieveAllBookings(bookingData);
-  currentGuest.sortBookingsByDate('future');
-  currentGuest.sortBookingsByDate('past');
+  if (currentGuest) {
+    currentGuest.calculateTotalSpent(bookingData, currentHotel);
+    currentGuest.retrieveAllBookings(bookingData);
+    currentGuest.sortBookingsByDate('future');
+    currentGuest.sortBookingsByDate('past');
+  }
 }
 
 function displayGuestHome() {
@@ -96,6 +98,7 @@ function displayGuestHome() {
 }
 
 function displayGuestNav() {
+  navSection.innerHTML = '';
   const navBlock =
     `<div class="guest-nav">
       <div class="nav-headings">
@@ -179,6 +182,7 @@ function displayRemovableGuestBookings(bookings, listBlock) {
 
 function createManager(currentUser) {
   currentManager = new Manager(currentUser.username);
+  clearHome();
   runManagerMethods();
 }
 
@@ -188,14 +192,16 @@ function clearHome() {
 }
 
 function runManagerMethods() {
-  const hotelOccupancy = currentManager.calculateOccupancyToday(bookingData, currentHotel.rooms.length);
-  const todaysRevenue = currentManager.calculateRevenueToday(bookingData, currentHotel);
-  const availableRooms = currentHotel.retrieveAvailableRooms(bookingData);
-  displayManagerHomeView(hotelOccupancy, todaysRevenue, availableRooms);
+  if (currentManager) {
+    const hotelOccupancy = currentManager.calculateOccupancyToday(bookingData, currentHotel.rooms.length);
+    const todaysRevenue = currentManager.calculateRevenueToday(bookingData, currentHotel);
+    const availableRooms = currentHotel.retrieveAvailableRooms(bookingData);
+    displayManagerHomeView(hotelOccupancy, todaysRevenue, availableRooms);
+  }
 }
 
 function displayManagerHomeView(hotelOccupancy, todaysRevenue, availableRooms) {
-  clearHome();
+  navSection.innerHTML = '';
   displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms);
 }
 
@@ -449,6 +455,9 @@ function updateBookingData(bookingChange) {
   bookingChange
     .then(() => apiCalls.getBookingData())
     .then(response => bookingData = response)
+    .then(() => runGuestMethods())
+    .then(() => displayGuestNav())
+    .then(() => runManagerMethods())
     .catch(error => console.log(error.message));
 }
 
