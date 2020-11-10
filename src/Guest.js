@@ -29,7 +29,7 @@ class Guest extends User {
   }
 
   retrieveAllBookings(allBookings) {
-    const guestHistory = this.findBookingRecords(allBookings)
+    const guestHistory = this.findBookingRecords(allBookings);
     guestHistory.forEach(booking => {
       if (booking.date === this.date) {
         this.presentBookings.push(booking);
@@ -42,11 +42,11 @@ class Guest extends User {
   }
 
   sortBookingsByDate(timePeriod) {
-    if (this.futureBookings.length > 0 && timePeriod === "future") {
+    if (this.futureBookings.length > 0 && timePeriod === 'future') {
       const sortedFuture = this.futureBookings.sort((futureA, futureB) => {
-        return futureA.date > futureB.date ? 1 : -1
+        return futureA.date > futureB.date ? 1 : -1;
       })
-    } else if (this.pastBookings.length > 0 && timePeriod === "past") {
+    } else if (this.pastBookings.length > 0 && timePeriod === 'past') {
       const sortedPast = this.pastBookings.sort((pastA, pastB) => {
         return pastA.date < pastB.date ? 1 : -1;
       })

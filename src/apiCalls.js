@@ -29,7 +29,7 @@ export let apiCalls = {
       body: JSON.stringify(bookingToPost),
     })
     .then(response => response.json())
-    .catch(error => console.log(error.message))
+    .catch(error => console.log(error.message));
   },
 
   deleteBooking(bookingToDelete) {
@@ -41,6 +41,6 @@ export let apiCalls = {
       body: JSON.stringify(bookingToDelete)
     })
     .then(response => response.json())
-    .catch(error => console.log(error.message))
+    .catch(error => console.log(error.message));
   }
 }

@@ -3,7 +3,7 @@ import Guest from './Guest';
 
 class Manager extends User {
   constructor(username) {
-    super(username)
+    super(username);
   }
 
   searchForGuest(guestName, allGuests) {
@@ -15,7 +15,7 @@ class Manager extends User {
       guestProfile.id = searchedGuest.id;
       return guestProfile;
     }
-    return "error";
+    return 'error';
   }
 
   filterTodaysBookings(allBookings) {
