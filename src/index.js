@@ -157,7 +157,8 @@ function displayBookings(cardTitle, bookings, guestProfile) {
 
 function handleBookingsList(bookings, guestProfile) {
   const listBlock = mainSection.lastChild.children[1];
-  if (bookings === guestProfile.futureBookings && guestProfile !== currentGuest) {
+  if (bookings ===
+    guestProfile.futureBookings && guestProfile !== currentGuest) {
     displayRemovableGuestBookings(bookings, listBlock);
   } else {
     displayBookingsList(bookings, listBlock);
@@ -195,9 +196,12 @@ function clearHome() {
 
 function runManagerMethods() {
   if (currentManager) {
-    const hotelOccupancy = currentManager.calculateOccupancyToday(bookingData, currentHotel.rooms.length);
-    const todaysRevenue = currentManager.calculateRevenueToday(bookingData, currentHotel);
-    const availableRooms = currentHotel.retrieveAvailableRooms(bookingData);
+    const hotelOccupancy =
+    currentManager.calculateOccupancyToday(bookingData, currentHotel.rooms.length);
+    const todaysRevenue =
+    currentManager.calculateRevenueToday(bookingData, currentHotel);
+    const availableRooms =
+    currentHotel.retrieveAvailableRooms(bookingData);
     displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms);
   }
 }
@@ -267,14 +271,14 @@ function handleAvailableRoomsDisplay(event, userID) {
 }
 
 function displayFilteredRoomsByDate(dateInput, event, userID) {
-  RemoveErrorMessage(event);
+  removeErrorMessage(event);
   mainSection.innerHTML = '';
   displayHeading(`Available Rooms For ${formatDateForDisplay(dateInput.value)}`);
   displayRoomTypeForm(userID);
   findOpenRooms(dateInput.value, userID);
 }
 
-function RemoveErrorMessage(event) {
+function removeErrorMessage(event) {
   if (event.target.nextElementSibling) {
     event.target.nextElementSibling.remove();
   }
@@ -318,7 +322,7 @@ function determineUserView(availableRooms, userID) {
   }
 }
 
-function displayAvailableRoomsForGuest(availableRooms, userID) {
+function displayAvailableRoomsForGuest(availableRooms) {
   availableRooms.forEach(room => {
     const roomBlock =
     `<article class="room-cards">
@@ -361,7 +365,7 @@ function displayNoVacancyMessage() {
 }
 
 function displayNavFormError(event, errorType) {
-  RemoveErrorMessage(event);
+  removeErrorMessage(event);
   const dateButton = event.target;
   const errorBlock =
   `<p class="error-message">Please enter a valid ${errorType}<p>`;
@@ -370,7 +374,8 @@ function displayNavFormError(event, errorType) {
 
 function findGuestProfile(event) {
   const nameEntered = event.target.previousElementSibling;
-  const guestProfile = currentManager.searchForGuest(nameEntered.value, userData);
+  const guestProfile =
+  currentManager.searchForGuest(nameEntered.value, userData);
   if (guestProfile === 'error') {
     displayNavFormError(event, 'guest name');
   } else {
@@ -380,7 +385,7 @@ function findGuestProfile(event) {
 }
 
 function displayGuestProfile(guestProfile) {
-  RemoveErrorMessage(event);
+  removeErrorMessage(event);
   mainSection.innerHTML = '';
   guestProfile.retrieveAllBookings(bookingData);
   guestProfile.sortBookingsByDate('future');
@@ -398,7 +403,8 @@ function handleMainSectionClick(event) {
   } else if (event.target.className === 'book-room-button') {
     handleRoomBooking(event, nameEntered, currentGuest);
   } else if (event.target.className === 'manager-book-room-button') {
-    const guestProfile = currentManager.searchForGuest(nameEntered.value, userData);
+    const guestProfile =
+    currentManager.searchForGuest(nameEntered.value, userData);
     handleRoomBooking(event, nameEntered, guestProfile);
   } else if (event.target.className === 'cancel-room-button') {
     handleBookingCancellation(event);
@@ -407,7 +413,8 @@ function handleMainSectionClick(event) {
 
 function handleRoomTypeFilter(event) {
   const selectedType = event.target.previousElementSibling
-  const filteredRooms = currentHotel.filterRoomsByType(bookingData, selectedType.value);
+  const filteredRooms =
+  currentHotel.filterRoomsByType(bookingData, selectedType.value);
   mainSection.innerHTML = '';
   if (filteredRooms.length > 0) {
     displayRoomTypeFilter(selectedType.value, filteredRooms);
@@ -424,7 +431,7 @@ function displayRoomTypeFilter(selectedType, filteredRooms) {
 
 function handleRoomBooking(event, nameEntered, guestProfile) {
   const roomName = event.target.parentNode.children[0].innerText;
-  RemoveErrorMessage(event)
+  removeErrorMessage(event)
   if (guestProfile === 'error') {
     displayNavFormError(event, 'guest name');
   } else {
@@ -434,7 +441,8 @@ function handleRoomBooking(event, nameEntered, guestProfile) {
 }
 
 function bookNewRoom(roomName, guestProfile, event) {
-  const bookingFormat = createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
+  const bookingFormat =
+  createBookingObject(roomName.slice(5), guestProfile.id, currentHotel.date);
   const newBooking = apiCalls.postNewBooking(bookingFormat);
   newBooking
     .then(() => displaySuccessfulBooking(event, roomName, currentHotel.date))

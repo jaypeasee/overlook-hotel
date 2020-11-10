@@ -38,7 +38,7 @@ const hotelRoom4 = {
 const booking1 = {
   id: "5fwrgu4i7k55hl6sz",
   userID: 1,
-  date:"2020/12/22",
+  date: "2020/12/22",
   roomNumber: 25,
   roomServiceCharges: []
 };
@@ -53,7 +53,7 @@ const booking2 = {
 
 const booking3 = {
   id: "5fwrgu4i7k55hl6tr",
-  userID : 45,
+  userID: 45,
   date: "2020/01/24",
   roomNumber: 12,
   roomServiceCharges: []

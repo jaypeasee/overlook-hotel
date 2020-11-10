@@ -11,7 +11,8 @@ class Manager extends User {
       return guestName === guest.name;
     })
     if (searchedGuest) {
-      const guestProfile = new Guest(`customer${searchedGuest.id}`, searchedGuest.name);
+      const guestProfile =
+      new Guest(`customer${searchedGuest.id}`, searchedGuest.name);
       guestProfile.id = searchedGuest.id;
       return guestProfile;
     }
@@ -26,7 +27,8 @@ class Manager extends User {
 
   calculateOccupancyToday(allBookings, totalNumberOfRooms) {
     const bookedRooms = this.filterTodaysBookings(allBookings);
-    const percentOccupancy = Math.round(bookedRooms.length / totalNumberOfRooms * 100);
+    const percentOccupancy =
+    Math.round(bookedRooms.length / totalNumberOfRooms * 100);
     return `${percentOccupancy}%`;
   }
 
@@ -40,7 +42,6 @@ class Manager extends User {
       })
       return totalRevenue;
     }, 0)
-    return totalRevenue;
   }
 }
 

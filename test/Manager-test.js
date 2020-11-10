@@ -1,7 +1,6 @@
 import chai from 'chai';
 const expect = chai.expect;
 import Manager from '../src/Manager';
-import Guest from '../src/Guest';
 import Hotel from '../src/Hotel';
 import moment from 'moment';
 import { allGuests, allBookings, allHotelRooms } from './sample-test-data'

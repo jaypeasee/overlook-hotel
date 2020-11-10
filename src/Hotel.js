@@ -16,7 +16,7 @@ class Hotel {
     const availableRooms = this.rooms.filter(room => {
       return !takenRoomNumbers.includes(room.number);
     })
-      return availableRooms;
+    return availableRooms;
   }
 
   filterRoomsByType(allBookings, roomType) {
