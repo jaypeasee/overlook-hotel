@@ -1,4 +1,3 @@
-import moment from 'moment';
 import './css/base.scss';
 import './images/turing-logo.png';
 import User from './User';
@@ -6,6 +5,7 @@ import Guest from './Guest';
 import Manager from './Manager';
 import Hotel from './Hotel';
 import { apiCalls } from './apiCalls';
+import moment from 'moment';
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -449,6 +449,7 @@ function updateBookingData(bookingChange) {
   bookingChange
     .then(() => apiCalls.getBookingData())
     .then(response => bookingData = response)
+    .then(() => runGuestMethods())
     .catch(error => console.log(error.message));
 }
 
