@@ -2,7 +2,7 @@
 
 ## Project Description:
 
-[This is a hotel booking application](https://jaypeasee.github.io/overlook-hotel/). It allows users (a manager, and 50 guests) to sign into their accounts. 
+[This is a hotel booking application](https://jaypeasee.github.io/overlook-hotel/). It allows users (a manager, and 50 guests) to view and book hotel rooms. 
 
 The guests, upon logging in, are provided with a unique dashboard that allows them to see today's date, the total amount they have spent at the hotel, and their booking history (past, present, and future). Guests can also search dates in the future to see the hotel's room availability, filter their searches by room type and book rooms.
 
