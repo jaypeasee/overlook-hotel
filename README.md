@@ -83,7 +83,7 @@ While this was a solo project. There was quite a lot of planning involved, inclu
 
 * `JavaScript` using `ES6` functions and classes.
 * `HTML`
-* `CSS`
+* `SCSS`
 * `Webpack` to bundle all necessary implementation files.
 * `NPM` to run and test the page locally.
 * `Mocha` testing framework that uses the `Chai` assertion library.
