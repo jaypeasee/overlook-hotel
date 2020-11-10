@@ -98,26 +98,28 @@ function displayGuestHome() {
 }
 
 function displayGuestNav() {
-  navSection.innerHTML = '';
-  const navBlock =
-    `<div class="guest-nav">
-      <div class="nav-headings">
-        <h2 class="nav-text">Welcome ${currentGuest.name}!</h2>
-        <h3 class="nav-text">Today's Date: ${formatDateForDisplay(currentGuest.date)}</h3>
-      </div>
-      <div class="nav-details">
-        <article class="nav-booking-form">
-          <h3 class="nav-form-heading nav-text">Book A Room</h3>
-          <input aria-label="date-input" type="date" class="date-availability-input">
-          <button class="customer-nav-button date-availability-button">CHECK AVAILABILITY!</button>
-        </article>
-        <div class="customer-info">
-          <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent}</h4>
-          <h4 class="dashboard-link nav-text">VIEW YOUR DASHBOARD</h4>
+  if (currentGuest) {
+    navSection.innerHTML = '';
+    const navBlock =
+      `<div class="guest-nav">
+        <div class="nav-headings">
+          <h2 class="nav-text">Welcome ${currentGuest.name}!</h2>
+          <h3 class="nav-text">Today's Date: ${formatDateForDisplay(currentGuest.date)}</h3>
         </div>
-      </div>
-    </div>`;
-  navSection.insertAdjacentHTML('afterbegin', navBlock);
+        <div class="nav-details">
+          <article class="nav-booking-form">
+            <h3 class="nav-form-heading nav-text">Book A Room</h3>
+            <input aria-label="date-input" type="date" class="date-availability-input">
+            <button class="customer-nav-button date-availability-button">CHECK AVAILABILITY!</button>
+          </article>
+          <div class="customer-info">
+            <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent}</h4>
+            <h4 class="dashboard-link nav-text">VIEW YOUR DASHBOARD</h4>
+          </div>
+        </div>
+      </div>`;
+    navSection.insertAdjacentHTML('afterbegin', navBlock);
+  }
 }
 
 function formatDateForDisplay(originalFormat) {
@@ -196,16 +198,12 @@ function runManagerMethods() {
     const hotelOccupancy = currentManager.calculateOccupancyToday(bookingData, currentHotel.rooms.length);
     const todaysRevenue = currentManager.calculateRevenueToday(bookingData, currentHotel);
     const availableRooms = currentHotel.retrieveAvailableRooms(bookingData);
-    displayManagerHomeView(hotelOccupancy, todaysRevenue, availableRooms);
+    displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms);
   }
 }
 
-function displayManagerHomeView(hotelOccupancy, todaysRevenue, availableRooms) {
-  navSection.innerHTML = '';
-  displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms);
-}
-
 function displayManagerNav(hotelOccupancy, todaysRevenue, availableRooms) {
+  navSection.innerHTML = '';
   const navBlock =
   `<nav class="manager-nav">
     <div class="manager-nav-heading">
