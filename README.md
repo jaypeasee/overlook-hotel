@@ -18,7 +18,7 @@ The complete project spec and rubric can be found [here](https://frontend.turing
 
 2. `Clone` it down to your local machine in the Terminal with the command `git clone <your ssh key>`. 
 
-3. Run `npm install` to get Webpack to run properly.
+3. Run `npm install` to get Webpack to compile the various implementation files.
 
 4. To see the page locally:
 
