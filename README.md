@@ -69,7 +69,7 @@ While this was a solo project, there was quite a lot of planning involved, inclu
 
 ## Challenges:
 
-1. Passing and displaying data asynchronously while working in a single-threaded language. The `GET`, `FETCH`, and `DELETE` calls to the API all rely in `Promise`s to resolve before data can be updated and therefore displayed on the page. This seemingly goes against the nature of JavaScript when attempting to invoke new functions immediately after an API call without tying it to `Promise`s.
+1. Passing and displaying data asynchronously while working in a single-threaded language. The `GET`, `FETCH`, and `DELETE` calls to the API all rely in `Promise`s to resolve before data can be updated and therefore displayed on the page. This seemingly goes against the nature of JavaScript when attempting to invoke new functions immediately after an API call without tying them to resolved `Promise`s.
 2. Designing a truly responsive page, especially when almost all of the HTML was inserted via Javascript. It required essentially redesigning the various nav displays, while giving property declarations percentage values instead of pixels.
 
 ## Wins:
