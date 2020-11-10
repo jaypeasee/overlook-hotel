@@ -85,7 +85,7 @@ While this was a solo project, there was quite a lot of planning involved, inclu
 * `HTML`
 * `SCSS`
 * `Webpack` to bundle all necessary implementation files.
-* `NPM` to run and test the page locally and the `moment` time package.
+* `NPM` to run the page locally, test classes and objects and to utilize the `moment` time package.
 * `Mocha` testing framework that uses the `Chai` assertion library.
 
 ## Contributors:
