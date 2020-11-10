@@ -18,14 +18,15 @@ class Guest extends User {
 
   calculateTotalSpent(allBookings, hotel) {
     const guestHistory = this.findBookingRecords(allBookings);
-    hotel.rooms.forEach(room => {
+    const calculatedAmount = hotel.rooms.reduce((sum, room) => {
       guestHistory.forEach(booking => {
         if (booking.roomNumber === room.number) {
-          this.totalAmountSpent += room.costPerNight;
+          sum += room.costPerNight;
         }
       })
-      this.totalAmountSpent = Math.round(this.totalAmountSpent * 100) / 100;
-    })
+      return sum;
+    }, 0)
+    this.totalAmountSpent = calculatedAmount.toFixed(2);
   }
 
   retrieveAllBookings(allBookings) {

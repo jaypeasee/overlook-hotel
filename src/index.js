@@ -83,10 +83,10 @@ function createGuest(currentUser) {
 
 function runGuestMethods() {
   if (currentGuest) {
-    currentGuest.calculateTotalSpent(bookingData, currentHotel);
     currentGuest.retrieveAllBookings(bookingData);
     currentGuest.sortBookingsByDate('future');
     currentGuest.sortBookingsByDate('past');
+    currentGuest.calculateTotalSpent(bookingData, currentHotel);
   }
 }
 
@@ -112,7 +112,7 @@ function displayGuestNav() {
           <button class="customer-nav-button date-availability-button">CHECK AVAILABILITY!</button>
         </article>
         <div class="customer-info">
-          <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent.toFixed(2)}</h4>
+          <h4 class="nav-text">Total Amount Spent on Rooms: $${currentGuest.totalAmountSpent}</h4>
           <h4 class="dashboard-link nav-text">VIEW YOUR DASHBOARD</h4>
         </div>
       </div>
