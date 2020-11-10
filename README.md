@@ -59,7 +59,7 @@ The complete project spec and rubric can be found [here](https://frontend.turing
 
 ## Planning:
 
-While this was a solo project. There was quite a lot of planning involved, including but not limited to:
+While this was a solo project, there was quite a lot of planning involved, including but not limited to:
 
 * A [Class Structure Outline](https://github.com/jaypeasee/overlook-hotel/blob/main/planning/ClassStructure.md)
 * A [Login Experience Wireframe](https://github.com/jaypeasee/overlook-hotel/blob/main/planning/logInView.png)
