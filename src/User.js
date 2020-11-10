@@ -1,9 +1,11 @@
+import moment from 'moment';
+
 class User {
   constructor(username) {
     this.username = username;
     this.password = "overlook2020";
     this.id = username.includes('customer') ? parseInt(username.slice(8)) : 0
-    this.date = new Date().toISOString().split('T')[0]
+    this.date = moment().format('YYYY-MM-DD');
   }
 
   validateUser(enteredPW) {

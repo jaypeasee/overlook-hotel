@@ -1,3 +1,4 @@
+import moment from 'moment';
 import './css/base.scss';
 import './images/turing-logo.png'
 import User from './User';
@@ -117,8 +118,7 @@ function displayGuestNav() {
 }
 
 function formatDateForDisplay(originalFormat) {
-  const date = new Date(originalFormat);
-  return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+  return moment(originalFormat).format('MM/DD/YYYY')
 }
 
 function displayHeading(sectionHeading) {
@@ -256,6 +256,7 @@ function handleNavClick(event) {
 
 function handleAvailableRoomsDisplay(event, userID) {
   const dateInput = event.target.previousElementSibling;
+      console.log(currentUser.date, dateInput.value)
   if (currentUser.date <= dateInput.value) {
     displayFilteredRoomsByDate(dateInput, event, userID)
   } else {
