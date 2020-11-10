@@ -76,7 +76,7 @@ While this was a solo project. There was quite a lot of planning involved, inclu
 
 1. This application successfully `GET`s, `POST`s and `DELETE`s data to and from the three APIs. It also asynchronously `GET`s the booking information again after it has been changed, without having to reload the page entirely.
 2. The page is fully responsive with an accessibility rating of 100% according to `Lighthouse` in `Chrome Dev Tools`.
-3. The testing suite is robust with over 50 tests that test 5 classes or objects.
+3. The testing suite is robust with over 56 tests that test 5 classes or objects and a sample data file for the tests.
 4. The `DOM` display is clean and makes the experience easy to use.
 
 ## Programming Languages and Technology Used:
